@@ -30,7 +30,6 @@ public class UserAddRequest implements Serializable {
      * パスワード
      */
     @NotEmpty(message = "パスワードは必ず入力してください")    
-    @Size(min = 8, message = "8文字以上で入力してください")
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]+$", message = "英数字8文字以上で入力してください")
     private String password;
     /**

@@ -7,6 +7,7 @@ body {
 main{
     padding-top: 160px;
     padding-bottom: 40px;
+    width: 100%;
 }
 h1{
     margin: 0;
@@ -64,7 +65,10 @@ textarea:focus {
 }
 .main-container {
     text-align: center;
-    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+}
+.midle-container {
     width: 480px;
     margin: 0 auto;
 }
@@ -127,8 +131,8 @@ textarea:focus {
 }
 .ttl_border{
     line-height: 42.19px;
-    text-align: left;
     border-bottom: solid 1px ;
+    display: inline-block;
 }
 .skill-column{
     border:solid 1px #dee2e6;
@@ -142,6 +146,17 @@ textarea:focus {
 	text-align: left;
 	font-weight: 700;
 	font-size: 16px;
+}
+.img_icon{
+    background-image: url("img.png");  /* 表示する画像 */
+    width:  360px;       /* ※縦横を同値に */
+    height: 360px;       /* ※縦横を同値に */
+    border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+    background-position: left top;  /* 横長画像の左上を基準に表示 */
+    background-position: center center;
+	}
+.ml-3{
+	margin-left: 3rem;
 }
 @media(min-width: 768px){
     .container{
