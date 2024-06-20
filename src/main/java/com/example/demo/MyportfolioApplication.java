@@ -9,6 +9,6 @@ public class MyportfolioApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyportfolioApplication.class, args);
 	}
-
+	
 	
 }

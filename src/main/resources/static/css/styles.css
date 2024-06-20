@@ -1,0 +1,150 @@
+body {
+    font-family: Robot;
+    height: 100vh;
+    font-weight: 400;
+    font-size: 18px;
+}
+main{
+    padding-top: 160px;
+    padding-bottom: 40px;
+}
+h1{
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+}
+h2{
+    font-size: 24px;
+    font-weight: 700;    
+}
+copy{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.09px;
+}
+label{
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    margin-bottom: 5px;
+}
+input,textarea{
+    display: block;
+    border: none;
+    border-bottom: solid 1px ;
+    width: 100%;
+}
+textarea:focus {
+    outline: none; 
+    border: none;
+}
+.header{
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color: #1B5678;
+    color: #FFFFFF;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+
+}
+.footer{
+    position: fixed;
+    bottom:0;
+    left: 0;
+    background-color: #1B5678;
+    color: #FFFFFF;
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+
+}
+.main-container {
+    text-align: center;
+    padding: 20px;
+    width: 480px;
+    margin: 0 auto;
+}
+.form-group{
+    margin-top: 30px
+}
+.form-item{
+    margin-top: 30px
+}
+.btn{
+    padding: 10px 20px;
+    display: block;
+}
+.form-item-btn{
+    margin-top: 10px
+}
+.btn-primary{
+    background-color: #1B5678;
+    border-color: #1B5678;
+}
+.btn:hover{
+    opacity: .8;
+}
+.btn-primary:hover{
+    background-color: #1B5678;
+    border-color: #1B5678;
+    opacity: .8;
+}
+.btn-login{
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+.btn-add{
+    background-color: #FFFFFF;
+    border: solid 1px #1B5678;
+    color: #1B5678;
+    padding: 10px
+}
+.btn-delete{
+    background-color: #EE6969;
+    border: solid 1px #EE6969;
+    color: #FFFFFF;
+    padding: 10px
+}
+.btn-add:hover{
+    background-color: #FFFFFF;
+    border: solid 1px #1B5678;
+    color: #1B5678;
+}
+.btn-login:hover{
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+    opacity: .8;
+    color: #1B5678;
+}
+.btn-delete:hover{
+    background-color: #EE6969;
+    border: solid 1px #EE6969;
+    color: #FFFFFF;
+}
+.ttl_border{
+    line-height: 42.19px;
+    text-align: left;
+    border-bottom: solid 1px ;
+}
+.skill-column{
+    border:solid 1px #dee2e6;
+    border-radius: 8px;
+    padding: 40px;
+    margin-bottom: 20px;
+    height: 500px;
+    overflow: scroll;  
+}
+.text-danger{
+	text-align: left;
+	font-weight: 700;
+	font-size: 16px;
+}
+@media(min-width: 768px){
+    .container{
+        width: 960px;
+    }
+}
