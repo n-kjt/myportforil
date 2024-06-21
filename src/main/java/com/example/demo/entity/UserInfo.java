@@ -50,4 +50,8 @@ public class UserInfo implements Serializable {
      * 削除日時
      */
     private Date deleteDate;
+
+
+    
+    
 }

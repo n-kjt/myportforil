@@ -53,4 +53,9 @@ public interface UserInfoMapper {
      * @param id ID
      */
     void delete(Long id);
+    
+    
+    public UserInfo findByEmail(String email);
+    
+    
 }

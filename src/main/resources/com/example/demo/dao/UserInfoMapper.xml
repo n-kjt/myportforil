@@ -42,6 +42,10 @@
     <update id="update">
         UPDATE users SET name = #{name}, email = #{email}, password = #{password}, self_introduction = #{self_introduction}, update_date = CURRENT_TIMESTAMP WHERE id = #{id}
     </update>
-
-
+    
+    
+    <select id="findByEmail" >
+        SELECT * FROM Users 
+        WHERE email = #{email}
+</select>
 </mapper>
