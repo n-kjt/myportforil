@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ログイン画面</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div>
+        <header class="header">
+            <h1>My Portfolio</h1>
+        </header>
+
+        <main class="main-container">
+            <div class="midle-container">
+                <h2>ログイン</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <div class="form-item">
+                            <label for="username">メールアドレス</label>
+                            <input th:field="*{email}" type="text" id="email" name="email">
+							 バリデーションエラーメッセージを表示 
+							<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"class="text-danger"></p>
+                        </div>
+                        <div class="form-item">
+                            <label for="password">パスワード</label>
+                            <input th:field="*{password}"type="password" id="password" name="password">
+							 バリデーションエラーメッセージを表示 
+							<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"class="text-danger"></p>	
+                        </div>
+                        <div class="form-item text-center">
+                            <button type="submit" class="btn btn-primary m-auto">ログインする</button>
+                            <button type="submit" class="mt-5 btn btn-primary m-auto">新規登録する</button>
+                        </div>
+                    </div>
+                </form>
+            </div>    
+        </main>
+
+        <footer class="footer">
+            <copy>Portfolio site</copy>
+        </footer>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

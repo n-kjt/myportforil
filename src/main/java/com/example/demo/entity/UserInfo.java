@@ -3,11 +3,15 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.relational.core.mapping.Table;
+
 import lombok.Data;
 
 /**
  * ユーザー情報 Entity
  */
+@Table(name = "users")
+
 @Data
 public class UserInfo implements Serializable {
 
@@ -51,7 +55,9 @@ public class UserInfo implements Serializable {
      */
     private Date deleteDate;
 
+    /**
+     * テーブルから取得した値を格納するentityを作成
+     */
+   public record UserAccount(String email,String password) {}
 
-    
-    
 }

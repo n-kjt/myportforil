@@ -13,7 +13,7 @@
                 <h1>My Portfolio</h1>
             </div>
             <div>
-                <button class="btn btn-login">ログイン</button>
+                <button	onclick="location.href='logout'"  class="btn btn-login">ログアウト</button>
             </div>
         </header>
 
@@ -21,8 +21,8 @@
               <div class="main-container">
             <div class="d-flex justify-content-between">
                 <div class="flex-column">
-                    <div class="img_icon"></div>
-                    <p class="name mt-2">氏名</p>
+                    <img th:src="@{/img/test.jpg}"class="img_icon">
+                    <p th:field="*{name}" type="text" id="name" name="name"class="name mt-2">氏名</p>
                 </div>
                 <div class="flex-column">
                 <div class="text-start"><h2 class="ttl_border">自己紹介</h2></div>

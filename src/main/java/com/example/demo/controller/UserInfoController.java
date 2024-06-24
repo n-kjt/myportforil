@@ -33,18 +33,7 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
-    /**
-     * ユーザー情報一覧画面を表示
-     * @param model Model
-     * @return ユーザー情報一覧画面
-     */
-    @GetMapping(value = "/user/list")
-    public String displayList(Model model) {
-        List<UserInfo> userList = userInfoService.findAll();
-        model.addAttribute("userlist", userList);
-        model.addAttribute("userSearchRequest", new UserSearchRequest());
-        return "user/search";
-    }
+
 
     /**
      * ユーザー新規登録画面を表示
@@ -108,8 +97,15 @@ public class UserInfoController {
     @GetMapping("/user/top")
     public String top() {
         return "/user/top";
-    }    
-
+    }  
+    
+    /**
+     * ログインページを表示
+     */
+//    @GetMapping("/user/login")
+//    public String login() {
+//        return "/user/login";
+//    }    
     /**
      * ユーザー新規登録
      * @param userRequest リクエストデータ
@@ -133,8 +129,10 @@ public class UserInfoController {
         }
         // ユーザー情報の登録
         userInfoService.save(userRequest);
+        System.out.println(userRequest);
         return "redirect:/user/top";
     }
+
    
 
     /**
@@ -143,7 +141,7 @@ public class UserInfoController {
      * @param model Model
      * @return ユーザー情報詳細画面
      */
-    @RequestMapping(value = "/user/top", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
     public String update(@Validated @ModelAttribute UserUpdateRequest userUpdateRequest, BindingResult result, Model model) {
         if (result.hasErrors()) {
             List<String> errorList = new ArrayList<String>();
@@ -151,16 +149,10 @@ public class UserInfoController {
                 errorList.add(error.getDefaultMessage());
             }
             model.addAttribute("validationError", errorList);
-
-            //コンソールで出力状況を確認
-            System.out.println(model.getAttribute("validationError"));
-            
-            return "user/top";
+            return "user/edit";
         }
         // ユーザー情報の更新
         userInfoService.update(userUpdateRequest);
         return "redirect:/user/list";
     }
-    
-    
 }

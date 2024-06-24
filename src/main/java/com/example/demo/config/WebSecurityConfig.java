@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
 	@Autowired
+	
     private UserDetailsService userDetailsService;
 	
 	  @Bean
@@ -24,21 +25,29 @@ public class WebSecurityConfig {
 	                .requestMatchers("/user/add","/user/top").permitAll()
 	                .requestMatchers("/css/**").permitAll()
 	                .anyRequest().authenticated()
-	            );
-	         /*   .formLogin(form -> form
+	            )
+	            .formLogin(form -> form
 	            	.usernameParameter("email")
 	            	.passwordParameter("password")
-	                .loginPage("/user/login")
+	            	// ログインを実行するページ
+	                .loginProcessingUrl("/user/add")
+	            	// ログイン画面
+	                .loginPage("/user/add")
+	                // ログインに成功した場合の遷移先
 	                .defaultSuccessUrl("/user/top", true)
 	                
 	            );
-	            */
+	            
 
 	        return http.build();
 	    }
 	
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+      return new BCryptPasswordEncoder();
+  }
+  
+    
+    
 }
+
