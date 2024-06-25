@@ -30,9 +30,9 @@ public class WebSecurityConfig {
 	            	.usernameParameter("email")
 	            	.passwordParameter("password")
 	            	// ログインを実行するページ
-	                .loginProcessingUrl("/user/add")
+	                .loginProcessingUrl("/user/login")
 	            	// ログイン画面
-	                .loginPage("/user/add")
+	                .loginPage("/user/login")
 	                // ログインに成功した場合の遷移先
 	                .defaultSuccessUrl("/user/top", true)
 	                

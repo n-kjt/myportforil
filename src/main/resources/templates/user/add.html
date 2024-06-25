@@ -13,7 +13,7 @@
 		        <h1>My Portfolio</h1>
 		    </div>
 		    <div>
-		        <button class="btn btn-login">ログイン</button>
+		        <button class="btn btn-login" th:action="@{/user/login}">ログイン</button>
 		    </div>
 		</header>
 		
@@ -21,6 +21,7 @@
 		    <div class="midle-container">
 		        <h2>新規登録</h2>
 		        <form th:action="@{/user/add}" th:object="${userAddRequest}" th:method="post">
+					<div class=""></div>
 					<!--userAddRequestクラスでfieldは定義されている-->
 		            <div class="form-group">
 		                <div class="form-item">

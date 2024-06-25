@@ -102,10 +102,11 @@ public class UserInfoController {
     /**
      * ログインページを表示
      */
-//    @GetMapping("/user/login")
-//    public String login() {
-//        return "/user/login";
-//    }    
+    @GetMapping("/user/login")
+    public String login() {
+        return "/user/login";
+    }  
+    
     /**
      * ユーザー新規登録
      * @param userRequest リクエストデータ
