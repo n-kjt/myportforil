@@ -55,16 +55,14 @@ public interface UserInfoMapper {
     void delete(Long id);
     
     /**
-     * テーブルからemailとpasswordを取得するmapperを作成
-     */        
-//    public UserAccount getAccount(String email);
-    
-    /**
-     * メールアドレスとパスワードを検索する
+     * ユーザー名、メールアドレスとパスワードを検索する
      */
-    
     public UserInfo findByEmail(String email);
     public UserInfo findByPassword(String password);
-    
-  
+    public UserInfo findByName(String name); 
+
+    /**
+     * テーブルからaccount_idとpasswordを取得するmapperを作成
+     */
+    public UserInfo getAccount(int accountId);
 }

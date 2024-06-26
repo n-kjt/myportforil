@@ -10,9 +10,10 @@ import lombok.Data;
 /**
  * ユーザー情報 Entity
  */
-@Table(name = "users")
 
+@Table(name = "users")
 @Data
+
 public class UserInfo implements Serializable {
 
     /**
@@ -54,10 +55,9 @@ public class UserInfo implements Serializable {
      * 削除日時
      */
     private Date deleteDate;
+    
 
-    /**
-     * テーブルから取得した値を格納するentityを作成
-     */
-   public record UserAccount(String email,String password) {}
+    //テーブルから取得した値を格納するentityを作成
+    public record UserAccount(int accountId,String password) {};
 
 }

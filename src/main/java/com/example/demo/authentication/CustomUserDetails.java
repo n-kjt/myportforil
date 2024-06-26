@@ -16,6 +16,7 @@ public class CustomUserDetails implements UserDetails{
 	public CustomUserDetails(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;
@@ -35,4 +36,27 @@ public class CustomUserDetails implements UserDetails{
 	public String getPassword() {
 		return this.userInfo.getPassword();
 	}
-}
+	
+	//ログイン認証のために追加したけどなにこれ??
+//	@Override
+//	public boolean isAccountNonExpired() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isAccountNonLocked() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isCredentialsNonExpired() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isEnabled() {
+//		return true;
+//	}
+	//ログイン認証のために追加したけどたぶん不要
+
+}	

@@ -13,13 +13,13 @@
 		        <h1>My Portfolio</h1>
 		    </div>
 		    <div>
-		        <button class="btn btn-login" th:action="@{/user/login}">ログイン</button>
+		        <button onclick="location.href='/user/login'" class="btn btn-login">ログイン</button>
 		    </div>
 		</header>
 		
 		<main>
 		    <div class="midle-container">
-		        <h2>新規登録</h2>
+		        <h2 class="text-center">新規登録</h2>
 		        <form th:action="@{/user/add}" th:object="${userAddRequest}" th:method="post">
 					<div class=""></div>
 					<!--userAddRequestクラスでfieldは定義されている-->
@@ -45,7 +45,7 @@
 			             </div>											
 												
 		                <div class="mt-5">
-		                    <button type="submit" class="mt-5 btn btn-primary">登録する</button>
+		                    <button type="submit" class="mt-5 btn btn-primary m-auto">登録する</button>
 		                </div>
 		          </div>
 		      </form>

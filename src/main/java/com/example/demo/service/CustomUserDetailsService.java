@@ -26,4 +26,3 @@ import com.example.demo.entity.UserInfo;
 		        return new CustomUserDetails(userInfo);
 		    }
 	}
-
