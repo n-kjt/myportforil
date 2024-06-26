@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.UserAddRequest;
 import com.example.demo.service.UserInfoService;
@@ -56,9 +57,13 @@ public class UserInfoController {
      * ログインページを表示
      */
     @GetMapping("/user/login")
-    public String login() {
+    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            // エラーメッセージをモデルに追加
+            model.addAttribute("error_message", "メールアドレス、もしくはパスワードが間違っています");
+        }
         return "user/login";
-    }  
+    }
     
     /**
      * ユーザー新規登録
@@ -82,7 +87,7 @@ public class UserInfoController {
 	        return "user/add";
 	    }
 	    // ユーザー情報の登録
-	//        userInfoService.save(userRequest);
+        userInfoService.save(userRequest);
 	    System.out.println(userRequest);
 	    return "redirect:/user/top";
 	}

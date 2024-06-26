@@ -41,7 +41,7 @@ public class WebSecurityConfig {
 	            		// ログインに成功した場合の遷移先
 	            		.defaultSuccessUrl("/user/top", true)
 	            		// ログイン失敗時のURL
-	            		.failureUrl("/login")
+	            		.failureUrl("/user/login?error") // カスタム認証失敗ハンドラを設定
 	            		)
 	            
 	            .logout((logout) -> logout
@@ -65,6 +65,5 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
                 // パスワードエンコードを行わない設定
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
-    
     
 }
