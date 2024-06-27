@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 	
 @Configuration // クラスに@Configurationをつけることで、このクラスがSpringの設定クラスであることを示す
 
@@ -41,13 +42,18 @@ public class WebSecurityConfig {
 	            		// ログインに成功した場合の遷移先
 	            		.defaultSuccessUrl("/user/top", true)
 	            		// ログイン失敗時のURL
-	            		.failureUrl("/user/login?error") // カスタム認証失敗ハンドラを設定
+	            		.failureUrl("/user/login?error")
 	            		)
 	            
-	            .logout((logout) -> logout
-	                    // ログアウトした場合の遷移先
-	                   .permitAll());
+	            .logout(logout -> logout
+	                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+	                    .logoutUrl("/logout")
+	                    .logoutSuccessUrl("/login")
+	                    .invalidateHttpSession(true)
+	                    .deleteCookies("JSESSIONID")
+	                );
 	            
+	        
 
 	        return http.build();
 	    }
@@ -58,6 +64,7 @@ public class WebSecurityConfig {
       return new BCryptPasswordEncoder();
   }
   
+  //6:ログイン認証
   @SuppressWarnings("deprecation")
 protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // UserDetailsServiceを設定し、ユーザー認証情報を提供

@@ -12,9 +12,9 @@
             <div>
                 <h1>My Portfolio</h1>
             </div>
-            <div>
-                <button th:action="@{/user/logout}" class="btn btn-login">ログアウト</button>
-            </div>
+			<form th:action="@{/user/login}" method="post">
+			      <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
+			  </form>
         </header>
 
         <main>
@@ -22,7 +22,7 @@
             <div class="d-flex justify-content-between">
                 <div class="flex-column">
                     <img th:src="@{/img/test.jpg}"class="img_icon">
-                    <p class="name mt-2" th:text="#{mame}"></p>
+                    <p class="name mt-2" sec:authentication="name"></p>
                 </div>
                 <div class="flex-column">
                 <div class="text-start"><h2 class="ttl_border">自己紹介</h2></div>

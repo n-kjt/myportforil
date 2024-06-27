@@ -42,8 +42,7 @@
 		                    <input th:field="*{password}"type="password" id="password" name="password">
 							<!-- バリデーションエラーメッセージを表示 -->
 							<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"class="text-danger"></p>							
-			             </div>											
-												
+			             </div>
 		                <div class="mt-5">
 		                    <button type="submit" class="mt-5 btn btn-primary m-auto">登録する</button>
 		                </div>
