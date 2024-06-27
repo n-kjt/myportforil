@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 	
+@SuppressWarnings("deprecation")
 @Configuration // クラスに@Configurationをつけることで、このクラスがSpringの設定クラスであることを示す
 
 @EnableWebSecurity // @EnableWebSecurityをつけることで、Spring Securityのウェブセキュリティサポートを有効化する
@@ -27,9 +28,9 @@ public class WebSecurityConfig {
 	        http
 	            .csrf(csrf -> csrf.disable())
 	            .authorizeHttpRequests(authorize -> authorize
-	                .requestMatchers("/").permitAll()
-	                .requestMatchers("user/login","/user/add","/user/top").permitAll()
-	                .requestMatchers("/css/**").permitAll() 
+	            	.requestMatchers("/").permitAll()
+		            .requestMatchers("user/login","/user/add").permitAll()
+		            .requestMatchers("/css/**").permitAll() 
 	                .anyRequest().authenticated()
 	            )
 	            .formLogin(form -> form
@@ -43,6 +44,7 @@ public class WebSecurityConfig {
 	            		.defaultSuccessUrl("/user/top", true)
 	            		// ログイン失敗時のURL
 	            		.failureUrl("/user/login?error")
+	            		.permitAll()
 	            		)
 	            
 	            .logout(logout -> logout
@@ -51,7 +53,9 @@ public class WebSecurityConfig {
 	                    .logoutSuccessUrl("/login")
 	                    .invalidateHttpSession(true)
 	                    .deleteCookies("JSESSIONID")
-	                );
+	                    .permitAll()
+	                )
+	            ;
 	            
 	        return http.build();
 	    }
