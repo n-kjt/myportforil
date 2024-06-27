@@ -53,6 +53,7 @@ public class WebSecurityConfig {
 	                    .deleteCookies("JSESSIONID")
 	                );
 	            
+	        
 
 	        return http.build();
 	    }
@@ -63,6 +64,7 @@ public class WebSecurityConfig {
       return new BCryptPasswordEncoder();
   }
   
+  //6:ログイン認証
   @SuppressWarnings("deprecation")
 protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // UserDetailsServiceを設定し、ユーザー認証情報を提供
