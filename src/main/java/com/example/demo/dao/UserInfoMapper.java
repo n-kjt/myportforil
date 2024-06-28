@@ -60,7 +60,7 @@ public interface UserInfoMapper {
     public UserInfo findByEmail(String email);
     public UserInfo findByPassword(String password);
     public UserInfo findByName(String name); 
-
+    public UserInfo findBySelf_introduction(String self_introduction); 
     /**
      * テーブルからaccount_idとpasswordを取得するmapperを作成
      */

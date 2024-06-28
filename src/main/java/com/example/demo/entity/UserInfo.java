@@ -55,9 +55,8 @@ public class UserInfo implements Serializable {
      * 削除日時
      */
     private Date deleteDate;
-    
 
-    //テーブルから取得した値を格納するentityを作成
-    public record UserAccount(int accountId,String password) {};
+    //テーブルから取得した値を格納するentityを作成 
+    public record UserAccount(int accountId,String password,String self_introduction) {};
 
 }

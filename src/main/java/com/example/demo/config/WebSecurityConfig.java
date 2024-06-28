@@ -29,7 +29,7 @@ public class WebSecurityConfig {
 	            .csrf(csrf -> csrf.disable())
 	            .authorizeHttpRequests(authorize -> authorize
 	            	.requestMatchers("/").permitAll()
-		            .requestMatchers("user/login","/user/add").permitAll()
+		            .requestMatchers("user/login","/user/add","/user/top","/user/profileedit").permitAll()
 		            .requestMatchers("/css/**").permitAll() 
 	                .anyRequest().authenticated()
 	            )
@@ -54,9 +54,8 @@ public class WebSecurityConfig {
 	                    .invalidateHttpSession(true)
 	                    .deleteCookies("JSESSIONID")
 	                    .permitAll()
-	                )
-	            ;
-	            
+	                );
+	        
 	        return http.build();
 	    }
 	  
@@ -68,11 +67,12 @@ public class WebSecurityConfig {
   
   //6:ログイン認証
   @SuppressWarnings("deprecation")
-protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // UserDetailsServiceを設定し、ユーザー認証情報を提供
         auth.userDetailsService(userDetailsService)
                 // パスワードエンコードを行わない設定
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
+  
     
 }

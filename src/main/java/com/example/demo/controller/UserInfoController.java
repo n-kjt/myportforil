@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.UserAddRequest;
+import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.service.UserInfoService;
 
 /**
@@ -33,17 +34,15 @@ public class UserInfoController {
 
 
     /**
-     * ユーザー新規登録画面を表示
+     * 新規登録画面を表示
      * @param model Model
-     * @return ユーザー情報一覧画面
+     * @return 新規登録画面を表示
      */
     @GetMapping(value = "/user/add")
     public String displayAdd(Model model) {
         model.addAttribute("userAddRequest", new UserAddRequest());
         return "user/add";
     }
-
-
     
     /**
      * ユーザーページトップを表示
@@ -52,6 +51,7 @@ public class UserInfoController {
     public String top() {
         return "/user/top";
     }  
+
     
     /**
      * ログインページを表示
@@ -69,7 +69,7 @@ public class UserInfoController {
      * ユーザー新規登録
      * @param userRequest リクエストデータ
      * @param model Model
-     * @return ユーザー情報一覧画面
+     * @return ユーザー新規登録
      */
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
 	public String create(@Validated @ModelAttribute UserAddRequest userRequest, BindingResult result, Model model) {
@@ -83,7 +83,6 @@ public class UserInfoController {
 	        
 	        //コンソールで出力状況を確認
 	        System.out.println(model.getAttribute("validationError"));
-	        
 	        return "user/add";
 	    }
 	    // ユーザー情報の登録
@@ -91,6 +90,31 @@ public class UserInfoController {
 	    System.out.println(userRequest);
 	    return "redirect:/user/top";
 	}
-
+	
+    @GetMapping("/user/profileedit")
+    public String profileedit() {
+        return "/user/profileedit";
+    }  
+    
+    /**
+     * 自己紹介更新
+     * @param userRequest リクエストデータ
+     * @param model Model
+     * @return 自己紹介更新
+     */
+    @RequestMapping(value = "/user/profileedit", method = RequestMethod.POST)
+    public String update(@Validated @ModelAttribute UserUpdateRequest userUpdateRequest, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            List<String> errorList = new ArrayList<String>();
+            for (ObjectError error : result.getAllErrors()) {
+                errorList.add(error.getDefaultMessage());
+            }
+            model.addAttribute("validationError", errorList);
+            return "user/profileedit";
+        }
+        // ユーザー情報の更新
+        userInfoService.update(userUpdateRequest);
+        return "redirect:/user/top";
+    }
    
 }
