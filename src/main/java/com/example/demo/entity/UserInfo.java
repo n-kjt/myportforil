@@ -9,6 +9,8 @@ import lombok.Data;
 
 /**
  * ユーザー情報 Entity
+ * エンティティ：データベースのテーブル構造を表したオブジェクト
+ * 
  */
 
 @Table(name = "users")

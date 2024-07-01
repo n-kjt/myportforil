@@ -91,7 +91,7 @@ public class UserInfoController {
 	    return "redirect:/user/top";
 	}
 	
-    @GetMapping("/user/profileedit")
+    @RequestMapping("/user/profileedit")
     public String profileedit() {
         return "/user/profileedit";
     }  

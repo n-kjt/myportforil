@@ -55,9 +55,11 @@ public class UserInfoService {
      * @param userAddRequest リクエストデータ
      */
     public void save(UserAddRequest userAddRequest) {
-        
+    	// userAddRequestオブジェクトからパスワードを取得、passwordEncoderで暗号化の処理を行う
         String encodedPassword = passwordEncoder.encode(userAddRequest.getPassword());
+        // 暗号化されたパスワードをuserAddRequestリクエストオブジェクトに設定する
 		userAddRequest.setPassword(encodedPassword);
+		// 暗号化されたパスワードを含むユーザー情報をデータベースに保存する
 		userInfoMapper.save(userAddRequest);
     }
 

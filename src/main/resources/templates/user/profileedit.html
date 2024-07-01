@@ -26,12 +26,15 @@
                     <div class="form-group">
                         <div class="form-item">
                             <label for="username">自己紹介文</label>
-							<textarea name="self_introduction" required></textarea>
-<!--							<textarea name="self_introduction" th:text="${self_introduction}" required></textarea>-->
-							<!-- バリデーションエラーメッセージを表示 -->
-							<div th:if="${validationError}" th:each="error : ${validationError}">
-								<label class="text-danger" th:text="${error}"></label>
+							<textarea name="self_introduction" class="mb-1" required></textarea>
+
+
+							    <!-- バリデーションエラーメッセージを表示 -->
+							    <div th:if="${validationError}" class="text-danger">
+							        <p th:each="error : ${#fields.errors('self_introduction')}" th:text="${error}"></p>
+							    </div>
 							</div>
+							
                         </div>
                         <div class="form-item">
                             <label for="form-image">アバター画像</label>
