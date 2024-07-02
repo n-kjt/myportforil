@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="common/head :: head_fragment(title = '自己紹介編集', scripts = ~{::script}, links = ~{::link})">
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>自己紹介編集</title>
-	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-	</head>
+<head th:replace="common/head :: head_fragment(title = '自己紹介編集', scripts = ~{::script}, links = ~{::link})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自己紹介編集</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
 <body>
     <div>
         <header class="header d-flex justify-content-between">
@@ -13,43 +13,37 @@
                 <h1>My Portfolio</h1>
             </div>
             <div>
-				<form th:action="@{/logout}" method="post">
-					<input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
-				</form>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
+                </form>
             </div>
         </header>
 
-        <main>
+        <main class="main-container">
             <div class="midle-container">
                 <h2 class="text-center">自己紹介を編集する</h2>
                 <form th:action="@{/user/profileedit}" th:object="${userUpdateRequest}" th:method="post" class="login-group">
                     <div class="form-group">
                         <div class="form-item">
-                            <label for="username">自己紹介文</label>
-							<textarea name="self_introduction" class="mb-1" required></textarea>
-
-
-							    <!-- バリデーションエラーメッセージを表示 -->
-							    <div th:if="${validationError}" class="text-danger">
-							        <p th:each="error : ${#fields.errors('self_introduction')}" th:text="${error}"></p>
-							    </div>
-							</div>
-							
+                            <label for="self_introduction">自己紹介文</label>
+							<textarea th:field="*{self_introduction}" type="text" id="self_introduction" name="self_introduction" class="mb-1"></textarea>
+                            <!-- バリデーションエラーメッセージを表示 -->
+							<p th:if="${#fields.hasErrors('self_introduction')}" th:errors="*{self_introduction}" class="text-danger"></p>
                         </div>
-                        <div class="form-item">
-                            <label for="form-image">アバター画像</label>
-                            <button class="file-button btn border-0">画像ファイルを添付する</button>
-                        </div>
-                        <div class="mt-5 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">自己紹介を確定する</button>
-                        </div>
-                  </div>
-              </form>
-          </div>    
+                    </div>
+                    <div class="form-item">
+                        <label for="form-image">アバター画像</label>
+                        <button class="file-button btn border-0">画像ファイルを添付する</button>
+                    </div>
+                    <div class="mt-5 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">自己紹介を確定する</button>
+                    </div>
+                </form>
+            </div>
         </main>
 
         <footer class="footer">
-			<copy sec:authentication="name"></copy>
+            <copy sec:authentication="name"></copy>
         </footer>
 
         <script src="script.js"></script>

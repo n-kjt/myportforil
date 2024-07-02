@@ -90,11 +90,14 @@ public class UserInfoController {
 	    System.out.println(userRequest);
 	    return "redirect:/user/top";
 	}
-	
-    @RequestMapping("/user/profileedit")
-    public String profileedit() {
-        return "/user/profileedit";
-    }  
+    /**
+     * 自己紹介更新ページを表示
+     */
+	@RequestMapping("/user/profileedit")
+	public String profileedit(Model model) {
+	    model.addAttribute("userUpdateRequest", new UserUpdateRequest());
+	    return "/user/profileedit";
+	} 
     
     /**
      * 自己紹介更新

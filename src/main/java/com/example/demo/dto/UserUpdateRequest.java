@@ -12,8 +12,9 @@ import lombok.EqualsAndHashCode;
  * ユーザー情報更新リクエストデータ
  *
  */
+
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false)//継承があるオブジェクトで@Data を使うと警告が入るので回避のために
 public class UserUpdateRequest extends UserAddRequest implements Serializable {
 
     /**
@@ -28,4 +29,5 @@ public class UserUpdateRequest extends UserAddRequest implements Serializable {
    @NotEmpty(message = "自己紹介文は必ず入力してください")
    @Size(min = 50, max = 200, message = "自己紹介文は50文字以上200文字以内で入力してください")
    private String self_introduction;
+
 }

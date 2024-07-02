@@ -40,7 +40,7 @@
 
     <!-- 更新 -->
     <update id="update">
-        UPDATE users SET name = #{name}, email = #{email}, password = #{password}, self_introduction = #{self_introduction}, update_date = CURRENT_TIMESTAMP WHERE id = #{id}
+        UPDATE users SET  self_introduction = #{self_introduction}, update_date = CURRENT_TIMESTAMP 
     </update>
     
      <!-- DBからメアドを引っ張ってきてid="findByEmail"に定義する -->

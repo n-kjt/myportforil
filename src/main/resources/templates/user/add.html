@@ -30,6 +30,7 @@
 							<!-- バリデーションエラーメッセージを表示 -->
 							<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
 						</div>
+						
 		                <div class="form-item">
 		                    <label for="email">メールアドレス</label>
 		                    <input th:field="*{email}" type="text" id="email" name="email">
