@@ -1,3 +1,5 @@
+//エンティティクラス：データベースから引っ張て来た情報を保管するクラス
+
 package com.example.demo.entity;
 
 import java.io.Serializable;
@@ -14,7 +16,7 @@ import lombok.Data;
  */
 
 @Table(name = "users")
-@Data
+@Data//getterとsetterを勝手に用意してくれる
 
 public class UserInfo implements Serializable {
 

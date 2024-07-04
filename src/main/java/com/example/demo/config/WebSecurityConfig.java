@@ -26,10 +26,10 @@ public class WebSecurityConfig {
 	  @Bean
 	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	        http
-	            .csrf(csrf -> csrf.disable())
+	            .csrf(csrf -> csrf.disable())//CSRF保護を無効にするための設定
 	            .authorizeHttpRequests(authorize -> authorize
 	            	.requestMatchers("/").permitAll()
-		            .requestMatchers("user/login","/user/add","/user/top","/user/profileedit").permitAll()
+		            .requestMatchers("/user/login","/user/add","/user/top","/user/profileedit").permitAll()//7:.permitAll()は認証なくても表示を許可
 		            .requestMatchers("/css/**").permitAll() 
 	                .anyRequest().authenticated()
 	            )
@@ -46,7 +46,7 @@ public class WebSecurityConfig {
 	            		.failureUrl("/user/login?error")
 	            		.permitAll()
 	            		)
-	            
+	            //7:ログアウト機能
 	            .logout(logout -> logout
 	                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 	                    .logoutUrl("/logout")
@@ -59,9 +59,9 @@ public class WebSecurityConfig {
 	        return http.build();
 	    }
 	  
-	
+//5:PWのハッシュ化
   @Bean
-  public PasswordEncoder passwordEncoder() {
+  public PasswordEncoder passwordEncoder() {	
       return new BCryptPasswordEncoder();
   }
   

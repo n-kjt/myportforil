@@ -1,3 +1,5 @@
+//サービスクラス：リッポジトリクラス(DBから情報をとってくるクラス)を呼び出すクラス
+
 package com.example.demo.service;
 
 import java.util.List;

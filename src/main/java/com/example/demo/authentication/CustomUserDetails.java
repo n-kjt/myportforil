@@ -42,6 +42,8 @@ public class CustomUserDetails implements UserDetails{
 		return this.userInfo.getSelf_introduction();
 	}
 	
-
+	public Long getId(){
+	return this.userInfo.getId();
+}
 
 }	

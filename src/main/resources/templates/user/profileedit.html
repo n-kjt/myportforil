@@ -23,12 +23,16 @@
             <div class="midle-container">
                 <h2 class="text-center">自己紹介を編集する</h2>
                 <form th:action="@{/user/profileedit}" th:object="${userUpdateRequest}" th:method="post" class="login-group">
+					<input type="hidden" th:field="*{id}">
                     <div class="form-group">
                         <div class="form-item">
-                            <label for="self_introduction">自己紹介文</label>
-							<textarea th:field="*{self_introduction}" type="text" id="self_introduction" name="self_introduction" class="mb-1"></textarea>
+                            <label for="selfIntroduction">自己紹介文</label>
+							<!-- type="text"の時th:fieldがあるとidとnameをfieldと同じ値に勝手に定義してくれる-->
+							<textarea th:field="*{selfIntroduction}" type="text" class="mb-1"></textarea>
                             <!-- バリデーションエラーメッセージを表示 -->
-							<p th:if="${#fields.hasErrors('self_introduction')}" th:errors="*{self_introduction}" class="text-danger"></p>
+							<div th:if="${#fields.hasErrors('selfIntroduction')}" class="text-danger">
+							   <p th:each="error : ${#fields.errors('selfIntroduction')}" th:text="${error}" class="mb-0"></p>
+							</div>
                         </div>
                     </div>
                     <div class="form-item">
