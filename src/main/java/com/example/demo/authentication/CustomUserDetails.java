@@ -37,26 +37,13 @@ public class CustomUserDetails implements UserDetails{
 		return this.userInfo.getPassword();
 	}
 	
-	//ログイン認証のために追加したけどなにこれ??
-//	@Override
-//	public boolean isAccountNonExpired() {
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean isAccountNonLocked() {
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean isCredentialsNonExpired() {
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean isEnabled() {
-//		return true;
-//	}
-	//ログイン認証のために追加したけどたぶん不要
+	//@Override
+	public String getSelf_introduction() {
+		return this.userInfo.getSelfIntroduction();
+	}
+	
+	public Long getId(){
+	return this.userInfo.getId();
+}
 
 }	

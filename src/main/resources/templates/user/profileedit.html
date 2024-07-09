@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head :: head_fragment(title = '自己紹介編集', scripts = ~{::script}, links = ~{::link})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自己紹介編集</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <header class="header d-flex justify-content-between">
+            <div>
+                <h1>My Portfolio</h1>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
+                </form>
+            </div>
+        </header>
+
+        <main class="main-container">
+            <div class="midle-container">
+                <h2 class="text-center">自己紹介を編集する</h2>
+                <form th:action="@{/user/profileedit}" th:object="${userUpdateRequest}" th:method="post" class="login-group">
+					<input type="hidden" th:field="*{id}">
+                    <div class="form-group">
+                        <div class="form-item">
+                            <label for="selfIntroduction">自己紹介文</label>
+							<!-- type="text"の時th:fieldがあるとidとnameをfieldと同じ値に勝手に定義してくれる-->
+							<textarea th:field="*{selfIntroduction}" type="text" class="mb-1"></textarea>
+                            <!-- バリデーションエラーメッセージを表示 -->
+							<div th:if="${#fields.hasErrors('selfIntroduction')}" class="text-danger">
+							   <p th:each="error : ${#fields.errors('selfIntroduction')}" th:text="${error}" class="mb-0"></p>
+							</div>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <label for="form-image">アバター画像</label>
+                        <button class="file-button btn border-0">画像ファイルを添付する</button>
+                    </div>
+                    <div class="mt-5 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">自己紹介を確定する</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <copy sec:authentication="name"></copy>
+        </footer>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

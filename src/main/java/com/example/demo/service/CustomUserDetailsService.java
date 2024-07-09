@@ -1,3 +1,4 @@
+//ユーザーの情報を検索する役割をUserDetailsService が担っている。
 package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ import com.example.demo.entity.UserInfo;
 		        UserInfo userInfo = userInfoMapper.findByEmail(email);
 		        if (userInfo == null) {
 		            throw new UsernameNotFoundException("User not found");
-		        }	        
+		        }
+		     // ログを追加して確認
+		        //System.out.println("SelfIntroduction: " + userInfo.getSelfIntroduction());
 		        return new CustomUserDetails(userInfo);
 		    }
 	}

@@ -1,3 +1,4 @@
+//サービスクラス：リッポジトリクラス(DBから情報をとってくるクラス)を呼び出すクラス
 package com.example.demo.service;
 
 import java.util.List;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.UserInfoMapper;
 import com.example.demo.dto.UserAddRequest;
-import com.example.demo.dto.UserSearchRequest;
 import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.entity.UserInfo;
 
@@ -41,23 +41,18 @@ public class UserInfoService {
         return userInfoMapper.findById(id);
     }
 
-    /**
-     * ユーザー情報検索
-     * @param userSearchRequest リクエストデータ
-     * @return 検索結果
-     */
-    public List<UserInfo> search(UserSearchRequest userSearchRequest) {
-        return userInfoMapper.search(userSearchRequest);
-    }
+
 
     /**
      * ユーザ情報登録
      * @param userAddRequest リクエストデータ
      */
     public void save(UserAddRequest userAddRequest) {
-        
+    	// userAddRequestオブジェクトからパスワードを取得、passwordEncoderで暗号化の処理を行う
         String encodedPassword = passwordEncoder.encode(userAddRequest.getPassword());
+        // 暗号化されたパスワードをuserAddRequestリクエストオブジェクトに設定する
 		userAddRequest.setPassword(encodedPassword);
+		// 暗号化されたパスワードを含むユーザー情報をデータベースに保存する
 		userInfoMapper.save(userAddRequest);
     }
 
@@ -69,13 +64,7 @@ public class UserInfoService {
         userInfoMapper.update(userUpdateRequest);
     }
 
-    /**
-     * ユーザー情報論理削除
-     * @param id
-     */
-    public void delete(Long id) {
-        userInfoMapper.delete(id);
-    }
+
     
     
     

@@ -39,9 +39,11 @@
     </insert>
 
     <!-- 更新 -->
-    <update id="update">
-        UPDATE users SET name = #{name}, email = #{email}, password = #{password}, self_introduction = #{self_introduction}, update_date = CURRENT_TIMESTAMP WHERE id = #{id}
-    </update>
+<update id="update">
+    UPDATE users 
+    SET self_introduction = #{selfIntroduction}, update_date = CURRENT_TIMESTAMP 
+    WHERE id = #{id}
+</update>
     
      <!-- DBからメアドを引っ張ってきてid="findByEmail"に定義する -->
      <select id="findByEmail" >

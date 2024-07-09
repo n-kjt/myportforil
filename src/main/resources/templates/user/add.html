@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><!--th:~はthymeleaf利用する際のルール-->
 	<head th:replace="common/head :: head_fragment(title = 'ユーザー新規登録', scripts = ~{::script}, links = ~{::link})">
 	    <meta charset="UTF-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>新規登録</title>
+	    <title>ユーザー新規登録</title>
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 	</head>
 <body>
@@ -20,16 +20,17 @@
 		<main>
 		    <div class="midle-container">
 		        <h2 class="text-center">新規登録</h2>
-		        <form th:action="@{/user/add}" th:object="${userAddRequest}" th:method="post">
+		        <form th:action="@{/user/add}" th:object="${userAddRequest}" th:method="post"><!--th:objectはクラスを利用する定義-->
 					<div class=""></div>
 					<!--userAddRequestクラスでfieldは定義されている-->
 		            <div class="form-group">
 		                <div class="form-item">
 		                    <label for="name">氏名</label>
-		                    <input th:field="*{name}" type="text" id="name" name="name">
+		                    <input th:field="*{name}" type="text" id="name" name="name"><!--name属性がHTML内のname属性と一致するとデータが引き渡される-->
 							<!-- バリデーションエラーメッセージを表示 -->
 							<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
 						</div>
+						
 		                <div class="form-item">
 		                    <label for="email">メールアドレス</label>
 		                    <input th:field="*{email}" type="text" id="email" name="email">

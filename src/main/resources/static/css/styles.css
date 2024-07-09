@@ -8,6 +8,9 @@ main{
     padding-top: 160px;
     padding-bottom: 40px;
 }
+p{
+	word-break: break-all;
+}
 h1{
     margin: 0;
     font-size: 36px;
@@ -78,7 +81,7 @@ textarea:focus {
     margin-top: 30px
 }
 .btn{
-    padding: 10px 20px;
+    padding: 10px 40px;
     display: block;
 }
 .form-item-btn{
@@ -156,6 +159,11 @@ textarea:focus {
 .mr-5{
 	margin-right: 5em;
 }
+.file-button{
+  background:rgba(236,236,236,1.00);
+  padding: 8px 40px;
+}
+
 @media(min-width: 768px){
     .container{
         width: 960px;
