@@ -53,8 +53,6 @@ public class WebSecurityConfig {
 	                    .deleteCookies("JSESSIONID")
 	                );
 	            
-	        
-
 	        return http.build();
 	    }
 	  
