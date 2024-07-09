@@ -21,22 +21,22 @@
               <div class="main-container">
             <div class="d-flex justify-content-between">
                 <div class="flex-column">
-                    <img th:src="@{/img/test.jpg}"class="img_icon">
-                    <p class="name mt-2" sec:authentication="name"></p>
+                    <img th:src="@{/img/img_none.png}"class="img_icon">
+                    <p class="name mt-3" sec:authentication="name"></p>
                 </div>
-                <div class="flex-column">
-                <div class="text-start"><h2 class="ttl_border">自己紹介</h2></div>
+                <div class="flex-column text-center col-6">
+                <div><h2 class="ttl_border">自己紹介</h2></div>
                 <form id="self-introduction-form">
                     <div class="form-group">
                         <div class="mt-5">
-                            <p class="text-start"th:text="#{self_introduction}">自分の自己紹介文章が入ります。自分の自己紹介文章が入ります。自分の自己紹介文章が入ります。自分の自己紹介文章が入ります。自分の自己紹介文章が入ります。</p>
-                            <div class="text-start"><button type="submit" class="mt-3 btn btn-primary">自己紹介を編集する</button></div>
+                            <p>自分の自己紹介文章が入ります。自分の自己紹介文章が入ります。自分の自己紹介文章が入ります。自分の自己紹介文章が入ります。自分の自己紹介文章が入ります。</p>
+                            <div><button type="submit" class="mt-3 btn btn-primary m-auto">自己紹介を編集する</button></div>
                         </div>
                   </div>
               </form>
             </div>
           </div>
-          <div class="">
+          <div class="mt-5">
               <h2 class="ttl_border text-center">学習チャート</h2>
               <form id="chart-form">
                   <div class="form-group">

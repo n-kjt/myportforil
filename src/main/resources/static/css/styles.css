@@ -147,15 +147,15 @@ textarea:focus {
 	font-size: 16px;
 }
 .img_icon{
-    background-image: url("img.png");  /* 表示する画像 */
     width:  360px;       /* ※縦横を同値に */
     height: 360px;       /* ※縦横を同値に */
     border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
     background-position: left top;  /* 横長画像の左上を基準に表示 */
     background-position: center center;
-    margin-right: 80px;
 	}
-
+.mr-5{
+	margin-right: 5em;
+}
 @media(min-width: 768px){
     .container{
         width: 960px;
