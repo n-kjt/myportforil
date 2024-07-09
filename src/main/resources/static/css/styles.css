@@ -8,6 +8,9 @@ main{
     padding-top: 160px;
     padding-bottom: 40px;
 }
+p{
+	word-break: break-all;
+}
 h1{
     margin: 0;
     font-size: 36px;

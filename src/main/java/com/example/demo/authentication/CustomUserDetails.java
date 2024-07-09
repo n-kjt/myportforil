@@ -39,7 +39,7 @@ public class CustomUserDetails implements UserDetails{
 	
 	//@Override
 	public String getSelf_introduction() {
-		return this.userInfo.getSelf_introduction();
+		return this.userInfo.getSelfIntroduction();
 	}
 	
 	public Long getId(){
