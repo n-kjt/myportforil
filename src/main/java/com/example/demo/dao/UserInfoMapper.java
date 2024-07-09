@@ -57,6 +57,7 @@ public interface UserInfoMapper {
     /**
      * ユーザー名、メールアドレスとパスワードを検索する
      */
+
     public UserInfo findByEmail(String email);
     public UserInfo findByPassword(String password);
     public UserInfo findByName(String name); 

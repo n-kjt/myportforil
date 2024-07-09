@@ -75,12 +75,28 @@ public class UserInfoController {
     /**
      * ユーザーページトップを表示
      */
-    @GetMapping("/user/top")
-    public String top() {
-        return "/user/top";
-    }  
 
-    
+	
+	@GetMapping("/user/top")
+	public String top(Model model,Authentication loginUser) {
+	    // CustomUserDetailsオブジェクトを取得
+        CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        model.addAttribute("userName", userName);
+        
+        String selfIntroduction = userDetails.getSelf_introduction();
+
+        model.addAttribute("selfIntroduction",selfIntroduction);
+        model.addAttribute("userUpdateRequest",new UserUpdateRequest());
+
+	    // ログ出力
+	    System.out.println("selfIntroduction" + selfIntroduction);
+	    
+	    return "/user/top";
+	}
+
+	
     /**
      * ログインページを表示
      */
@@ -113,7 +129,7 @@ public class UserInfoController {
         userUpdateRequest.setSelfIntroduction(selfIntroduction);
         
         model.addAttribute("userUpdateRequest", userUpdateRequest);
-        model.addAttribute("self_introduction",selfIntroduction);
+        model.addAttribute("selfIntroduction",selfIntroduction);
         
 	    return "/user/profileedit";
 	} 

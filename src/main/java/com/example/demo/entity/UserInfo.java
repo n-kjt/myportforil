@@ -38,7 +38,7 @@ public class UserInfo implements Serializable {
     /**
      * 自己紹介
      */
-    private String self_introduction;
+    private String Self_introduction;
 
     /**
      * パスワード

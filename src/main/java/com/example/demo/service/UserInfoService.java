@@ -1,5 +1,4 @@
 //サービスクラス：リッポジトリクラス(DBから情報をとってくるクラス)を呼び出すクラス
-
 package com.example.demo.service;
 
 import java.util.List;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.UserInfoMapper;
 import com.example.demo.dto.UserAddRequest;
-import com.example.demo.dto.UserSearchRequest;
 import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.entity.UserInfo;
 
@@ -43,14 +41,7 @@ public class UserInfoService {
         return userInfoMapper.findById(id);
     }
 
-    /**
-     * ユーザー情報検索
-     * @param userSearchRequest リクエストデータ
-     * @return 検索結果
-     */
-    public List<UserInfo> search(UserSearchRequest userSearchRequest) {
-        return userInfoMapper.search(userSearchRequest);
-    }
+
 
     /**
      * ユーザ情報登録
@@ -73,13 +64,7 @@ public class UserInfoService {
         userInfoMapper.update(userUpdateRequest);
     }
 
-    /**
-     * ユーザー情報論理削除
-     * @param id
-     */
-    public void delete(Long id) {
-        userInfoMapper.delete(id);
-    }
+
     
     
     
