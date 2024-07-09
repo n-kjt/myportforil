@@ -29,7 +29,7 @@ public class WebSecurityConfig {
 	            .csrf(csrf -> csrf.disable())//CSRF保護を無効にするための設定
 	            .authorizeHttpRequests(authorize -> authorize
 	            	.requestMatchers("/").permitAll()
-		            .requestMatchers("/user/login","/user/add","/user/top","/user/profileedit").permitAll()//7:.permitAll()は認証なくても表示を許可
+		            .requestMatchers("/user/login","/user/add","/user/top","/user/profileedit","/user/skilledit").permitAll()//7:.permitAll()は認証なくても表示を許可
 		            .requestMatchers("/css/**").permitAll() 
 	                .anyRequest().authenticated()
 	            )

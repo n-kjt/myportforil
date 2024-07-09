@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="common/head :: head_fragment(title = 'スキル一覧', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+    <div>
+        <header class="header d-flex justify-content-between">
+            <div>
+                <h1>My Portfolio</h1>
+            </div>
+            <div>
+                <button class="btn btn-login">ログイン</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="skill-column">
+                    <form id="skill-introduction-form">
+                        <div class="d-flex justify-content-between mb-2">
+                            <h2 class="ttl_border w-40">バックエンド</h2>
+                            <div class="">
+                                <button class="btn btn-primary">項目を追加する</button>
+                            </div>
+                        </div>                  
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-3">項目名</th>
+                                    <th scope="col" class="col-3">学習時間</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row">Ruby</td>
+                                    <td><select class="form-select"></select></td>
+                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">Rails</td>
+                                    <td><select class="form-select"></select></td>
+                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">MySQL</td>
+                                    <td><select class="form-select"></select></td>
+                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
+                                </tr>
+                            </tbody>
+                        </table>              
+                    </form>
+                </div>
+                <div class="skill-column">
+                    <form id="skill-introduction-form">
+                        <div class="d-flex justify-content-between mb-2">
+                            <h2 class="ttl_border w-40">フロントエンド</h2>
+                            <div class="">
+                                <button class="btn btn-primary">項目を追加する</button>
+                            </div>
+                        </div>                  
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-3">項目名</th>
+                                    <th scope="col" class="col-3">学習時間</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row">HTML</td>
+                                    <td><select class="form-select"></select></td>
+                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">CSS</td>
+                                    <td><select class="form-select"></select></td>
+                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
+                                </tr>
+                            </tbody>
+                        </table>              
+                    </form>
+                </div><div class="skill-column">
+                    <form id="skill-introduction-form">
+                        <div class="d-flex justify-content-between mb-2">
+                            <h2 class="ttl_border w-40">インフラ</h2>
+                            <div class="">
+                                <button class="btn btn-primary">項目を追加する</button>
+                            </div>
+                        </div>                  
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-3">項目名</th>
+                                    <th scope="col" class="col-3">学習時間</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row">Heroku</td>
+                                    <td><select class="form-select"></select></td>
+                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">AWS</td>
+                                    <td><select class="form-select"></select></td>
+                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">Firebase</td>
+                                    <td><select class="form-select"></select></td>
+                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
+                                </tr>
+                            </tbody>
+                        </table>              
+                    </form>
+                </div>
+          </div>
+        </main>
+
+		<footer class="footer">
+		   <copy sec:authentication="name"></copy>
+		</footer>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

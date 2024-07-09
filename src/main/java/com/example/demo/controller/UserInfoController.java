@@ -156,5 +156,17 @@ public class UserInfoController {
         userInfoService.update(userUpdateRequest);
         return "redirect:/user/top";
     }
+    
+    
+    /**
+     * スキル一覧画面を表示
+     * @param model Model
+     * @return スキル一覧画面を表示
+     */
+    @GetMapping(value = "/user/skilledit")
+    public String skillAdd(Model model) {//ModelクラスはHTMLからのデータの受け渡しをする
+        model.addAttribute("userAddRequest", new UserAddRequest());
+        return "user/skilledit";
+    }
    
 }

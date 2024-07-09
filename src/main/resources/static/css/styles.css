@@ -1,3 +1,7 @@
+.table>:not(caption)>*>*{
+	padding: 1em;
+	vertical-align: middle;
+}
 body {
     font-family: Robot;
     height: 100vh;
@@ -113,7 +117,7 @@ textarea:focus {
     background-color: #EE6969;
     border: solid 1px #EE6969;
     color: #FFFFFF;
-    padding: 10px
+    padding: 10px 20px
 }
 .btn-add:hover{
     background-color: #FFFFFF;
@@ -141,7 +145,7 @@ textarea:focus {
     border-radius: 8px;
     padding: 40px;
     margin-bottom: 20px;
-    height: 500px;
+    max-height: 500px;
     overflow: scroll;  
 }
 .text-danger{
