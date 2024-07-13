@@ -34,18 +34,18 @@
                             <tbody>
                                 <tr>
                                     <td scope="row">Ruby</td>
-                                    <td><select class="form-select"></select></td>
+                                    <td><select class="form-select" th:text="${selfIntroduction}"></select></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Rails</td>
-                                    <td><select class="form-select"></select></td>
+                                    <td><select class="form-select"	th:text="${selfIntroduction}"></select></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">MySQL</td>
+                                    <td scope="row"	th:text="${selfIntroduction}">MySQL</td>
                                     <td><select class="form-select"></select></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>

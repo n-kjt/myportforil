@@ -66,4 +66,6 @@ public interface UserInfoMapper {
      * テーブルからaccount_idとpasswordを取得するmapperを作成
      */
     public UserInfo getAccount(int accountId);
+    
+    
 }
