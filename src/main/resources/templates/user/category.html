@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="common/head :: head_fragment(title = 'スキル一覧', scripts = ~{::script}, links = ~{::link})"></head>
+<head th:replace="common/head :: head_fragment(title = 'スキル一覧', scripts = ~{::script}, links = ~{::link})"></head>
 <body>
     <div>
         <header class="header d-flex justify-content-between">
@@ -33,20 +33,20 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td scope="row">Ruby</td>
-                                    <td><select class="form-select" th:text="${selfIntroduction}"></select></td>
+                                    <td scope="row"	th:text="${UserSearchRequest}">Ruby</td>
+                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" th:text="${selfIntroduction}" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Rails</td>
-                                    <td><select class="form-select"	th:text="${selfIntroduction}"></select></td>
+                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" th:text="${selfIntroduction}" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row"	th:text="${selfIntroduction}">MySQL</td>
-                                    <td><select class="form-select"></select></td>
+                                    <td scope="row" th:text="${selfIntroduction}">MySQL</td>
+                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
@@ -74,20 +74,21 @@
                             <tbody>
                                 <tr>
                                     <td scope="row">HTML</td>
-                                    <td><select class="form-select"></select></td>
+                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">CSS</td>
-                                    <td><select class="form-select"></select></td>
+                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                             </tbody>
                         </table>              
                     </form>
-                </div><div class="skill-column">
+                </div>
+                <div class="skill-column">
                     <form id="skill-introduction-form">
                         <div class="d-flex justify-content-between mb-2">
                             <h2 class="ttl_border w-40">インフラ</h2>
@@ -107,19 +108,19 @@
                             <tbody>
                                 <tr>
                                     <td scope="row">Heroku</td>
-                                    <td><select class="form-select"></select></td>
+                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">AWS</td>
-                                    <td><select class="form-select"></select></td>
+                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
                                     <td scope="row">Firebase</td>
-                                    <td><select class="form-select"></select></td>
+                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
@@ -127,12 +128,12 @@
                         </table>              
                     </form>
                 </div>
-          </div>
+            </div>
         </main>
 
-		<footer class="footer">
-		   <copy sec:authentication="name"></copy>
-		</footer>
+        <footer class="footer">
+           <copy sec:authentication="name"></copy>
+        </footer>
 
         <script src="script.js"></script>
     </div>

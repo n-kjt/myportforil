@@ -5,8 +5,6 @@ import java.util.Date;
 
 import org.springframework.data.relational.core.mapping.Table;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Insert;
-
 /**
  * 学習データ Entity
  */
@@ -16,7 +14,7 @@ public class LearningData implements Serializable {
 
     private Long id;
     private String name;
-    private Insert studyTime;
+    private int studyTime;
     private Long categoryId;
     private Long userId;
     private Date createdAt;
@@ -38,11 +36,11 @@ public class LearningData implements Serializable {
         this.name = name;
     }
 
-    public Insert getStudyTime() {
+    public int getStudyTime() {
         return studyTime;
     }
 
-    public void setStudyTime(Insert studyTime) {
+    public void setStudyTime(int studyTime) {
         this.studyTime = studyTime;
     }
 

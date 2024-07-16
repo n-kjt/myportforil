@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.authentication.CustomUserDetails;
 import com.example.demo.dto.UserAddRequest;
-import com.example.demo.dto.UserSearchRequest;
 import com.example.demo.dto.UserUpdateRequest;
-import com.example.demo.entity.UserInfo;
 import com.example.demo.service.UserInfoService;
 
 /**
@@ -165,9 +163,9 @@ public class UserInfoController {
      */
     @GetMapping(value = "/user/category")
     public String displayList(Model model) {//ModelクラスはHTMLからのデータの受け渡しをする
-        List<UserInfo> userList = userInfoService.findAll();
-        model.addAttribute("userlist", userList);
-        model.addAttribute("userSearchRequest", new UserSearchRequest());
+//        List<UserInfo> userList = userInfoService.findAll();
+//        model.addAttribute("userlist", userList);
+//        model.addAttribute("userSearchRequest", new UserSearchRequest());
         return "user/category";
     }
 
