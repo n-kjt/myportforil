@@ -161,12 +161,14 @@ public class UserInfoController {
      * @param model Model
      * @return スキル一覧画面を表示
      */
-    @GetMapping(value = "/user/category")
-    public String displayList(Model model) {//ModelクラスはHTMLからのデータの受け渡しをする
-//        List<UserInfo> userList = userInfoService.findAll();
-//        model.addAttribute("userlist", userList);
-//        model.addAttribute("userSearchRequest", new UserSearchRequest());
-        return "user/category";
-    }
+//    @GetMapping(value = "/user/category")
+//    public String getLearningData(Model model) {
+//        List<LearningData> learningDataList = learningDataService.getAllLearningData();
+//        model.addAttribute("learningDataList", learningDataList);
+//        return "learning-data";
+//    }
+//    
+
+
 
 }

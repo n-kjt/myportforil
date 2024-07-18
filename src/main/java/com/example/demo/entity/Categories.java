@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -16,6 +17,7 @@ public class Categories implements Serializable {
     private String name;
     private Date createdAt;
     private Date updatedAt;
+	private List<LearningData> learningData;
 
     public Long getId() {
         return id;
@@ -47,5 +49,13 @@ public class Categories implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    
+    public List<LearningData> getLearningData() {
+        return learningData;
+    }
+
+    public void setLearningData(List<LearningData> learningData) {
+        this.learningData = learningData;
     }
 }
