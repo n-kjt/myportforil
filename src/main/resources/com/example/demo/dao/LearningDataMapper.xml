@@ -4,14 +4,18 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="com.example.demo.dao.LearningDataMapper">	
     
-    <!-- learning_dataテーブルのデータ取得 -->
-    <select id="getLearningData" resultType="com.example.demo.entity.LearningData">
-        SELECT ld.id, ld.name, ld.study_time, ld.category_id, ld.user_id,
-               ld.created_at, ld.updated_at,
-               c.name as category_name
-        FROM learning_data ld
-        LEFT JOIN categories c ON ld.category_id = c.id
-        ORDER BY ld.category_id;
+    <select id="findAll" resultType="com.example.demo.entity.LearningData">
+        SELECT * FROM learning_data
     </select>
+    
+    <!-- learning_dataテーブルのデータ取得 -->
+<!--    <select id="getLearningData" resultType="com.example.demo.entity.LearningData">-->
+<!--        SELECT ld.id, ld.name, ld.study_time, ld.category_id, ld.user_id,-->
+<!--               ld.created_at, ld.updated_at,-->
+<!--               c.name as category_name-->
+<!--        FROM learning_data ld-->
+<!--        LEFT JOIN categories c ON ld.category_id = c.id-->
+<!--        ORDER BY ld.category_id;-->
+<!--    </select>-->
     
 </mapper>

@@ -14,7 +14,7 @@
 
         <main>
             <div class="container">
-                <div class="skill-column">
+                <div class="skill-column" th:each="entry : ${groupedByCategory}">
                     <form id="skill-introduction-form">
                         <div class="d-flex justify-content-between mb-2">
 							<h2 class="ttl_border w-40" >バックエンド</h2>
@@ -33,7 +33,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td scope="row">Ruby</td>
+                                    <td scope="row"	th:each="learning_data: ${name}">Ruby(項目名)</td>
 									<td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"/></td>
 									<td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
@@ -99,7 +99,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="col-3">項目名</th>
+									<th scope="col" class="col-3">項目名</th>
                                     <th scope="col" class="col-3">学習時間</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
