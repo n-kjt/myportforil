@@ -14,7 +14,13 @@ public interface LearningDataMapper {
      * @param user 検索用リクエストデータ
      * @return 検索結果
      */
-	List<LearningData> findAll();
+//	List<LearningData> findAll();//引数を取らず、データベースからすべてのレコードを取得
+	
+    /**
+     * カテゴリ別に学習情報を検索
+     * @return 検索結果
+     */
+    List<LearningData> getLearningData();
     
     
 }

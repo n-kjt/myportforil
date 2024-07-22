@@ -14,11 +14,12 @@ public class LearningData implements Serializable {
 
     private Long id;
     private String name;
-    private int studyTime;
-    private Long categoryId;
-    private Long userId;
-    private Date createdAt;
-    private Date updatedAt;
+    private int study_time;
+    private Long category_id;
+    private Long user_id;
+    private Date created_at;
+    private Date updated_at;
+    private String category_name;
 
     public Long getId() {
         return id;
@@ -37,42 +38,51 @@ public class LearningData implements Serializable {
     }
 
     public int getStudyTime() {
-        return studyTime;
+        return study_time;
     }
 
     public void setStudyTime(int studyTime) {
-        this.studyTime = studyTime;
+        this.study_time = studyTime;
     }
 
     public Long getCategoryId() {
-        return categoryId;
+        return category_id;
     }
 
     public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+        this.category_id = categoryId;
     }
 
     public Long getUserId() {
-        return userId;
+        return user_id;
     }
 
     public void setUserId(Long userId) {
-        this.userId = userId;
+        this.user_id = userId;
     }
 
     public Date getCreatedAt() {
-        return createdAt;
+        return created_at;
     }
 
     public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+        this.created_at = createdAt;
     }
 
     public Date getUpdatedAt() {
-        return updatedAt;
+        return updated_at;
     }
 
     public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+        this.updated_at = updatedAt;
     }
+
+	public String getCategory_name() {
+		return category_name;
+	}
+
+	public void setCategory_name(String categoryName) {
+		this.category_name = categoryName;
+	}
+
 }

@@ -16,8 +16,8 @@
             <div class="container">
                 <div class="skill-column" th:each="entry : ${groupedByCategory}">
                     <form id="skill-introduction-form">
-                        <div class="d-flex justify-content-between mb-2">
-							<h2 class="ttl_border w-40" >バックエンド</h2>
+                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 1">
+							<h2 class="ttl_border w-40">バックエンド(カテゴリ名)</h2>
                             <div class="">
                                 <button class="btn btn-primary">項目を追加する</button>
                             </div>
@@ -33,8 +33,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td scope="row"	th:each="learning_data: ${name}">Ruby(項目名)</td>
-									<td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"/></td>
+                                    <td scope="row"	>Ruby(項目名)</td>
+									<td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"></td>
 									<td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
@@ -45,7 +45,7 @@
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row" th:text="${selfIntroduction}">MySQL</td>
+                                    <td scope="row" >MySQL</td>
                                     <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="skill-column">
                     <form id="skill-introduction-form">
-                        <div class="d-flex justify-content-between mb-2">
+                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 2">
                             <h2 class="ttl_border w-40">フロントエンド</h2>
                             <div class="">
                                 <button class="btn btn-primary">項目を追加する</button>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="skill-column">
                     <form id="skill-introduction-form">
-                        <div class="d-flex justify-content-between mb-2">
+                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 3">
                             <h2 class="ttl_border w-40">インフラ</h2>
                             <div class="">
                                 <button class="btn btn-primary">項目を追加する</button>

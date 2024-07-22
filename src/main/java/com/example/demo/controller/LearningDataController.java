@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.service.LearningDataService;
+import com.example.demo.dao.LearningDataMapper;
 
 /**
  * 学習データ情報 Controller
@@ -12,16 +12,16 @@ import com.example.demo.service.LearningDataService;
 @Controller
 public class LearningDataController {
 
-    private final LearningDataService learningDataService;
+    private final LearningDataMapper learningDataMapper;
 
     //@Autowired
-    public LearningDataController(LearningDataService learningDataService) {
-        this.learningDataService = learningDataService;
+    public LearningDataController(LearningDataMapper learningDataService) {
+        this.learningDataMapper = learningDataService;
     }
 
     @GetMapping("/user/category")
     public String getLearningData(Model model) {
-        model.addAttribute("groupedByCategory", learningDataService.getAllLearningData());
+        model.addAttribute("groupedByCategory", learningDataMapper.getLearningData());
         return "/user/category";
     }
 
