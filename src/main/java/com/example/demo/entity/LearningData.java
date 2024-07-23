@@ -77,11 +77,11 @@ public class LearningData implements Serializable {
         this.updated_at = updatedAt;
     }
 
-	public String getCategory_name() {
+	public String getCategoryName() {
 		return category_name;
 	}
 
-	public void setCategory_name(String categoryName) {
+	public void setCategoryName(String categoryName) {
 		this.category_name = categoryName;
 	}
 

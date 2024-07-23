@@ -66,17 +66,6 @@
     
     
     
-    <!-- /////学習データ検索///// -->    
-    
-    <!-- 学習データ全件検索 -->
-    <select id="findLearningDataAll" resultType="com.example.demo.entity.LearningData">
-        SELECT * FROM learning_data
-    </select>
-    
-    <!-- カテゴリごとの学習データ検索 -->
-    <select id="findLearningDataByCategory" resultType="com.example.demo.entity.LearningData">
-        SELECT * FROM learning_data
-        WHERE category_id = #{categoryId}
-    </select>
 
+    
 </mapper>
