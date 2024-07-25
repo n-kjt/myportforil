@@ -14,10 +14,10 @@
 
         <main>
             <div class="container">
-                <div class="skill-column" th:each="entry : ${groupedByCategory}">
+                <div class="skill-column"th:each="entry : ${groupedByCategory}">
                     <form id="skill-introduction-form">
-                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 1">
-							<h2 class="ttl_border w-40">バックエンド(カテゴリ名)</h2>
+                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 2 and ${userId} == ${id}">
+							<h2 class="ttl_border w-40"th:text="${entry.categoryName}">バックエンド(カテゴリ名)</h2>
                             <div class="">
                                 <button class="btn btn-primary">項目を追加する</button>
                             </div>
@@ -33,31 +33,19 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td scope="row"	>Ruby(項目名)</td>
-									<td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"></td>
+                                    <td scope="row" th:text="${entry.name}">Ruby(項目名)</td>
+									<td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" th:value="${entry.studyTime}"></td>
 									<td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
-                                <tr>
-                                    <td scope="row">Rails</td>
-                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"/></td>
-                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
-                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row" >MySQL</td>
-                                    <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
-                                    <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
-                                    <td class="text-center"><button class="btn btn-delete">削除する</button></td>
-                                </tr>
                             </tbody>
                         </table>              
                     </form>
                 </div>
-                <div class="skill-column">
+                <div class="skill-column" th:each="entry : ${groupedByCategory}">
                     <form id="skill-introduction-form">
-                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 2">
-                            <h2 class="ttl_border w-40">フロントエンド</h2>
+                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 1">
+                            <h2 class="ttl_border w-40"	th:text="${entry.categoryName}">フロントエンド</h2>
                             <div class="">
                                 <button class="btn btn-primary">項目を追加する</button>
                             </div>
@@ -73,13 +61,13 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td scope="row">HTML</td>
+                                    <td scope="row"></td>
                                     <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">CSS</td>
+                                    <td scope="row"></td>
                                     <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select" /></td>
                                     <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
                                     <td class="text-center"><button class="btn btn-delete">削除する</button></td>
@@ -88,7 +76,7 @@
                         </table>              
                     </form>
                 </div>
-                <div class="skill-column">
+                <div class="skill-column"th:each="entry : ${groupedByCategory}">
                     <form id="skill-introduction-form">
                         <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 3">
                             <h2 class="ttl_border w-40">インフラ</h2>
