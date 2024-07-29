@@ -10,8 +10,8 @@
        c.name as category_name
        FROM learning_data ld
        LEFT JOIN categories c ON ld.category_id = c.id
+       WHERE ld.user_id = #{userId}
        ORDER BY ld.category_id;
-    
     </select>    
     
 

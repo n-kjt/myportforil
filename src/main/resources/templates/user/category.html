@@ -7,16 +7,16 @@
             <div>
                 <h1>My Portfolio</h1>
             </div>
-            <div>
-                <button class="btn btn-login">ログイン</button>
-            </div>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
+			</form>
         </header>
 
         <main>
             <div class="container">
                 <div class="skill-column"th:each="entry : ${groupedByCategory}">
                     <form id="skill-introduction-form">
-                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 2 and ${userId} == ${id}">
+                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 2 and ${entry.userId}">
 							<h2 class="ttl_border w-40"th:text="${entry.categoryName}">バックエンド(カテゴリ名)</h2>
                             <div class="">
                                 <button class="btn btn-primary">項目を追加する</button>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="skill-column" th:each="entry : ${groupedByCategory}">
                     <form id="skill-introduction-form">
-                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 1">
+                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 1 and ${userId} == ${id}">
                             <h2 class="ttl_border w-40"	th:text="${entry.categoryName}">フロントエンド</h2>
                             <div class="">
                                 <button class="btn btn-primary">項目を追加する</button>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="skill-column"th:each="entry : ${groupedByCategory}">
                     <form id="skill-introduction-form">
-                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 3">
+                        <div class="d-flex justify-content-between mb-2" th:if="${entry.categoryId} == 3 and ${userId} == ${id}">
                             <h2 class="ttl_border w-40">インフラ</h2>
                             <div class="">
                                 <button class="btn btn-primary">項目を追加する</button>

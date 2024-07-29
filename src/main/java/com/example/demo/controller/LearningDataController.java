@@ -25,7 +25,7 @@ public class LearningDataController {
 
     
     @GetMapping("/user/category")
-    public String getLearningData(Model model) {
+    public String getLearningData(Model model) {//getLearningDataはSQLから情報を引っ張ってきている
         // 現在認証されているユーザーを取得
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
