@@ -30,11 +30,11 @@ public class LearningDataController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         
-        // ユーザーIDをモデルに追加
+        // ユーザーIDをモデルに追加(modelに追加するとHTML内で使えるようになる)
         model.addAttribute("userId", userDetails.getId());// userDetails.getId()をuserIdという名前で使えるようにする
         
         // 学習データをカテゴリ別にグループ化してモデルに追加
-        model.addAttribute("groupedByCategory", learningDataMapper.getLearningData());
+        model.addAttribute("groupedByCategory", learningDataMapper.getLearningData(userDetails.getId()));
         
         return "/user/category";
     }
