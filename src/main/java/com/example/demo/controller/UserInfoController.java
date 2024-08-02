@@ -75,8 +75,6 @@ public class UserInfoController {
     /**
      * ユーザーページトップを表示
      */
-
-	
 	@GetMapping("/user/top")
 	public String top(Model model,Authentication loginUser) {
 	    // CustomUserDetailsオブジェクトを取得
@@ -120,7 +118,7 @@ public class UserInfoController {
         CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = auth.getName();
-        model.addAttribute("userName", userName);
+        model.addAttribute("userName", userName);//Attributeで指定するとHTMLで表示できるようになる
         
         String selfIntroduction = userDetails.getSelf_introduction();
         UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
@@ -128,8 +126,10 @@ public class UserInfoController {
         userUpdateRequest.setId(userDetails.getId());
         userUpdateRequest.setSelfIntroduction(selfIntroduction);
         
+        
         model.addAttribute("userUpdateRequest", userUpdateRequest);
         model.addAttribute("selfIntroduction",selfIntroduction);
+
         
 	    return "/user/profileedit";
 	} 
@@ -156,5 +156,9 @@ public class UserInfoController {
         userInfoService.update(userUpdateRequest);
         return "redirect:/user/top";
     }
-   
+    
+    
+
+
+
 }

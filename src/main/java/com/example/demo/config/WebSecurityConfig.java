@@ -28,8 +28,8 @@ public class WebSecurityConfig {
 	        http
 	            .csrf(csrf -> csrf.disable())//CSRF保護を無効にするための設定
 	            .authorizeHttpRequests(authorize -> authorize
-	            	.requestMatchers("/").permitAll()
-		            .requestMatchers("/user/login","/user/add","/user/top","/user/profileedit").permitAll()//7:.permitAll()は認証なくても表示を許可
+	            	.requestMatchers("/").authenticated()
+		            .requestMatchers("/user/login","/user/add","/user/profileedit","/user/category","/user/top").permitAll()//7:.permitAll()は認証なくても表示を許可
 		            .requestMatchers("/css/**").permitAll() 
 	                .anyRequest().authenticated()
 	            )
@@ -54,6 +54,7 @@ public class WebSecurityConfig {
 	                    .invalidateHttpSession(true)
 	                    .deleteCookies("JSESSIONID")
 	                    .permitAll()
+	                    
 	                );
 	        
 	        return http.build();

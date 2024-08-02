@@ -10,54 +10,13 @@ import org.springframework.data.relational.core.mapping.Table;
  * エンティティ：データベースのテーブル構造を表したオブジェクト
  */
 
-@Table(name = "users")
+@Table(name = "users")//クラス名とテーブル名が異なる場合のEntityクラスの宣言
 public class UserInfo implements Serializable {
 
     /**
      * ID
      */
     private Long id;
-
-    /**
-     * 名前
-     */
-    private String name;
-
-    /**
-     * メールアドレス
-     */
-    private String email;
-
-    /**
-     * 自己紹介
-     */
-    private String self_introduction;
-
-    /**
-     * パスワード
-     */
-    private String password;
-
-    /**
-     * 更新日時
-     */
-    private Date updateDate;
-
-    /**
-     * 登録日時
-     */
-    private Date createDate;
-
-    /**
-     * 削除日時
-     */
-    private Date deleteDate;
-
-    // テーブルから取得した値を格納するentityを作成
-    public record UserAccount(int accountId, String password, String selfIntroduction) {}
-
-    
-    // Getter and Setter methods
 
     public Long getId() {
         return id;
@@ -66,7 +25,11 @@ public class UserInfo implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
+    /**
+     * 名前
+     */
+    private String name;
+    
     public String getName() {
         return name;
     }
@@ -74,6 +37,10 @@ public class UserInfo implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    /**
+     * メールアドレス
+     */
+    private String email;
 
     public String getEmail() {
         return email;
@@ -82,6 +49,11 @@ public class UserInfo implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+    /**
+     * 自己紹介
+     */
+    private String self_introduction;
+
     public String getSelfIntroduction() {
         return self_introduction;
     }
@@ -89,7 +61,11 @@ public class UserInfo implements Serializable {
     public void setSelfIntroduction(String selfIntroduction) {
         this.self_introduction = selfIntroduction;
     }
-
+    /**
+     * パスワード
+     */
+    private String password;
+    
     public String getPassword() {
         return password;
     }
@@ -97,6 +73,10 @@ public class UserInfo implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+    /**
+     * 更新日時
+     */
+    private Date updateDate;
 
     public Date getUpdateDate() {
         return updateDate;
@@ -105,6 +85,10 @@ public class UserInfo implements Serializable {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+    /**
+     * 登録日時
+     */
+    private Date createDate;
 
     public Date getCreateDate() {
         return createDate;
@@ -113,7 +97,11 @@ public class UserInfo implements Serializable {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
-
+    /**
+     * 削除日時
+     */
+    private Date deleteDate;
+    
     public Date getDeleteDate() {
         return deleteDate;
     }
@@ -121,4 +109,19 @@ public class UserInfo implements Serializable {
     public void setDeleteDate(Date deleteDate) {
         this.deleteDate = deleteDate;
     }
+
+ 
+    
+
+
+
+
+
+
+
+
+
+
+
+
 }
