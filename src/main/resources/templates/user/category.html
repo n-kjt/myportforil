@@ -15,16 +15,18 @@
   <main>
     <div class="container">
       <div class="skill-column">
-        <form id="skill-introduction-form"											>
-          <div class="d-flex justify-content-between mb-2"						>
+        <form id="skill-introduction-form">
+          <div class="d-flex justify-content-between mb-3">
             <input type="hidden" th:field="${userId}" name="userId">
-            <h2 class="ttl_border w-40">バックエンド</h2>
+            <h2 class="ttl_border w-40"style="width:200px;">バックエンド</h2>
             <div class="">
-              <button class="btn btn-primary">項目を追加する</button>
+              <a class="btn btn-primary" th:href="@{/user/skilladd}">項目を追加する</a>
             </div>
           </div>
           <div>
-            <table class="table"							>
+            <table class="table border rounded-3" 
+			style="border-collapse: separate;
+			border-spacing: 0;">
               <thead>
               <th scope="col" class="col-3">項目名</th>
                 <th scope="col" class="col-3">学習時間</th>
@@ -48,13 +50,15 @@
       </div>
       <div class="skill-column">
         <form id="skill-introduction-form">
-          <div class="d-flex justify-content-between mb-2"						>
-            <h2 class="ttl_border w-40">フロントエンド</h2>
+          <div class="d-flex justify-content-between mb-3">
+            <h2 class="ttl_border"style="width:200px;">フロントエンド</h2>
             <div class="">
-              <button class="btn btn-primary">項目を追加する</button>
+				<a class="btn btn-primary" th:href="@{/user/skilladd}" >項目を追加する</a>
             </div>
           </div>
-          <table class="table">
+		  <table class="table border rounded-3" 
+		  style="border-collapse: separate;
+		  border-spacing: 0;">
             <thead>
               <tr>
                 <th scope="col" class="col-3">項目名</th>
@@ -77,13 +81,15 @@
       </div>
       <div class="skill-column">
         <form id="skill-introduction-form">
-          <div class="d-flex justify-content-between mb-2">
-            <h2 class="ttl_border w-40">インフラ</h2>
+          <div class="d-flex justify-content-between mb-3">
+            <h2 class="ttl_border w-40"style="width:150px;">インフラ</h2>
             <div class="">
-              <button class="btn btn-primary">項目を追加する</button>
+				<a class="btn btn-primary" th:href="@{/user/skilladd}">項目を追加する</a>
             </div>
           </div>
-          <table class="table">
+		  <table class="table border rounded-3" 
+		  style="border-collapse: separate;
+		  border-spacing: 0;">
             <thead>
               <tr>
                 <th scope="col" class="col-3">項目名</th>

@@ -158,18 +158,6 @@ public class UserInfoController {
     }
     
     
-    /**
-     * スキル一覧画面を表示
-     * @param model Model
-     * @return スキル一覧画面を表示
-     */
-//    @GetMapping(value = "/user/category")
-//    public String getLearningData(Model model) {
-//        List<LearningData> learningDataList = learningDataService.getAllLearningData();
-//        model.addAttribute("learningDataList", learningDataList);
-//        return "learning-data";
-//    }
-//    
 
 
 
