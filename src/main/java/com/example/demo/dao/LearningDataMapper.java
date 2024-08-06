@@ -18,4 +18,17 @@ public interface LearningDataMapper {
     List<LearningData> getLearningData(@Param("userId") long userId);
     
     
+    /**
+     * 学習項目の重複がないかを確認するためのメソッド
+     */
+    int countByStudyName(@Param("studyName") String studyName, @Param("userId") long userId);
+    
+    
+    /**
+     * 学習時間を登録するためのメソッド
+     */
+    
+    void insertLearningData(LearningData learningData);
+    
+    
 }

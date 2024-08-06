@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head :: head_fragment(title = '項目追加', scripts = ~{::script}, links = ~{::link})">
+</head>
+<body>
+    <div>
+		 <header class="header d-flex justify-content-between">
+		   <div>
+		     <h1>My Portfolio</h1>
+		   </div>
+		   <form th:action="@{/logout}" method="post">
+		     <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
+		   </form>
+		 </header>
+
+        <main class="main-container">
+            <div class="midle-container">
+                <form th:action="@{/user/skilledit}"th:object="${userUpdateRequest}"th:method="post" >
+                    <div class="form-group">
+                        <div class="form-item">
+                            <label for="studyName">項目名</label>
+                            <input type="text" id="username" name="username" th:field="*{studyName}" >
+                        </div>
+						
+						<!--バリデーションメッセージ-->
+						<div th:if="${#fields.hasErrors('studyName')}" class="text-danger">
+							<p th:each="error : ${#fields.errors('studyName')}" th:text="${error}" class="m-0"></p>
+						</div>
+						
+				
+                        <div class="form-item">
+                            <label for="leaningtime">学習時間</label>
+							<input type="number" id="tentacles" name="tentacles"th:field="*{studyTime}" >
+							<label class="mt-2">分単位で入力してください</label>
+                        </div>
+						
+						<!--バリデーションメッセージ-->
+						<div th:if="${#fields.hasErrors('studyTime')}" class="text-danger">
+							<p th:each="error : ${#fields.errors('studyTime')}" th:text="${error}" class="m-0"></p>
+						</div>
+						
+                        <div class="mt-5 d-flex justify-content-center">
+                            <button type="submit" class="mt-5 btn btn-primary">追加する</button>
+                        </div>
+                  </div>
+              </form>
+          </div>    
+        </main>
+				
+		<footer class="footer">
+		  <copy sec:authentication="name"></copy>
+		</footer>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

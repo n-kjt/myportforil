@@ -29,12 +29,12 @@ public class LearningData implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
+    public String getStudyName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudyName(String studyName) {
+        this.name = studyName;
     }
 
     public int getStudyTime() {
