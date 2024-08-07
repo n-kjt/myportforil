@@ -28,9 +28,14 @@ public interface LearningDataMapper {
     /**
      * 学習時間を登録するためのメソッド
      */
-    
     void insertLearningData(LearningDataUpdateRequest learningDataUpdateRequest);
     
+    /**
+     * カテゴリ名を取得
+     */
+    String findCategoryName(int categoryId);
+    
+   
     
   
 }

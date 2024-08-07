@@ -34,10 +34,10 @@ public class LearningDataUpdateRequest implements Serializable {
   @Column(value = "study_time")
   @NotNull(message = "学習時間は必ず入力してください")
   @Min(value = 1, message = "学習時間は1以上の数字で入力してください")
+  
   private Integer studyTime;
-
-
   private Integer category_id;
+  private String category_name;
   private Long user_id;
   
     public Long getUserId() {
@@ -54,5 +54,14 @@ public class LearningDataUpdateRequest implements Serializable {
     public void setCategoryId(Integer categoryId) {
         this.category_id = categoryId;
     }
+    
+    public String getCategoryName() {
+        return category_name;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.category_name = categoryName;
+    }
+    
   
 }

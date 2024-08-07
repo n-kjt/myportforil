@@ -6,7 +6,7 @@ import com.example.demo.dao.LearningDataMapper;
 import com.example.demo.dto.LearningDataUpdateRequest;
 
 @Service
-public class LeaningDataService {
+public class LearningDataService {
     /**
      * 学習項目追加 Mapper
      */
@@ -19,7 +19,13 @@ public class LeaningDataService {
     public void insert(LearningDataUpdateRequest learningDataUpdateRequest) {
     	learningDataMapper.insertLearningData(learningDataUpdateRequest);
     }
-	
+    
+    /**
+     * カテゴリ名を取得
+     */
+    public String findCategoryName(int categoryId) {
+        return learningDataMapper.findCategoryName(categoryId);
+    }
 
     
     }

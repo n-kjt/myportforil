@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.authentication.CustomUserDetails;
 import com.example.demo.dao.LearningDataMapper;
 import com.example.demo.dto.LearningDataUpdateRequest;
+import com.example.demo.service.LearningDataService;
 
 /**
  * 学習データ情報 Controller
@@ -22,11 +24,13 @@ import com.example.demo.dto.LearningDataUpdateRequest;
 public class LearningDataController {
 
     private final LearningDataMapper learningDataMapper;
+    private final LearningDataService learningDataService;
 
-    //@Autowired
-    public LearningDataController(LearningDataMapper learningDataService) {
-        this.learningDataMapper = learningDataService;
-    }
+    @Autowired
+    public LearningDataController(LearningDataMapper learningDataMapper, LearningDataService leaningDataService) {
+        this.learningDataMapper = learningDataMapper;
+        this.learningDataService = leaningDataService;  
+        }
 
 //    ページに項目と時間を表示
     @GetMapping("/user/category")
@@ -55,8 +59,11 @@ public class LearningDataController {
         LearningDataUpdateRequest learningDataUpdateRequest = new LearningDataUpdateRequest();
         learningDataUpdateRequest.setCategoryId(categoryId);
         learningDataUpdateRequest.setUserId(userDetails.getId()); // ユーザーIDを設定
+        
+        //カテゴリー名を表示
+        String categoryName = learningDataService.findCategoryName(categoryId);
+        model.addAttribute("categoryName", categoryName);
 
-        // モデルに追加
         model.addAttribute("learningDataUpdateRequest", learningDataUpdateRequest);
 
         return "/user/skilledit";
@@ -64,7 +71,7 @@ public class LearningDataController {
 
     
     
-    @PostMapping("/user/skilledit")
+    @PostMapping("/user/skilledit")//サーバーの変更時はPostMappingを使用する
     public String insert(@Validated @ModelAttribute("learningDataUpdateRequest") LearningDataUpdateRequest learningDataUpdateRequest, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "/user/skilledit";
@@ -75,10 +82,6 @@ public class LearningDataController {
 
         // ユーザーIDを設定
         learningDataUpdateRequest.setUserId(userDetails.getId());
-        
-        //カテゴリー名を表示
-//        LearningData categoryName = LeaningDataService.findCategory(category_id);
-//        model.addAttribute("category_name", categoryName);
         
         // 学習項目の追加
         learningDataMapper.insertLearningData(learningDataUpdateRequest);
