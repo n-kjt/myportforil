@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.example.demo.dto.LearningDataUpdateRequest;
 import com.example.demo.entity.LearningData;
 
 @Mapper
@@ -28,7 +29,8 @@ public interface LearningDataMapper {
      * 学習時間を登録するためのメソッド
      */
     
-    void insertLearningData(LearningData learningData);
+    void insertLearningData(LearningDataUpdateRequest learningDataUpdateRequest);
     
     
+  
 }

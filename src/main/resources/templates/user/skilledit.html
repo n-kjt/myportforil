@@ -15,7 +15,14 @@
 
         <main class="main-container">
             <div class="midle-container">
-                <form th:action="@{/user/skilledit}"th:object="${userUpdateRequest}"th:method="post" >
+				
+<!--				<h1 th:text="${category_name.name} + 'を追加'"></h1>-->
+				
+                <form th:action="@{/user/skilledit}"th:object="${learningDataUpdateRequest}"th:method="post" >
+					
+					  <input type="hidden" th:field="*{categoryId}" name="category_id"><!-- valueを前ページで選択したカテゴリごとに変わるようにする-->
+					  <input type="hidden" th:field="*{userId}" name="user_id"><!--DBへの登録の際、ログインユーザのIDが取得出来るよう設定-->
+										
                     <div class="form-group">
                         <div class="form-item">
                             <label for="studyName">項目名</label>
@@ -51,7 +58,6 @@
 		  <copy sec:authentication="name"></copy>
 		</footer>
 
-        <script src="script.js"></script>
     </div>
 </body>
 </html>
