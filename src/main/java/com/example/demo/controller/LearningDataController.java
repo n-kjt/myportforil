@@ -97,21 +97,12 @@ public class LearningDataController {
             model.addAttribute("categoryName", categoryName);
             
             return "/user/skilledit";
-        }
-        
+        }        
         
         // 学習項目の追加
         learningDataMapper.insertLearningData(learningDataUpdateRequest);
         return "redirect:/user/category";
 
     }
-    
-
-    
-
-
-
-
-    
 
 }
