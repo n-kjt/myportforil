@@ -26,7 +26,14 @@ public class LearningDataService {
     public String findCategoryName(int categoryId) {
         return learningDataMapper.findCategoryName(categoryId);
     }
-
+    
+    /**
+     * 学習項目名の重複をチェック
+     */    
+    
+    public boolean isStudyNameDuplicate(String studyName, long userId) {
+        return learningDataMapper.countByStudyName(studyName, userId) > 0;
+    }
     
     }
 

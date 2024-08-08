@@ -63,17 +63,20 @@ public class LearningDataController {
         //カテゴリー名を表示
         String categoryName = learningDataService.findCategoryName(categoryId);
         model.addAttribute("categoryName", categoryName);
-
         model.addAttribute("learningDataUpdateRequest", learningDataUpdateRequest);
 
         return "/user/skilledit";
     }
 
     
-    
     @PostMapping("/user/skilledit")//サーバーの変更時はPostMappingを使用する
     public String insert(@Validated @ModelAttribute("learningDataUpdateRequest") LearningDataUpdateRequest learningDataUpdateRequest, BindingResult result, Model model) {
         if (result.hasErrors()) {
+        	
+            // カテゴリ名をモデルに追加
+            String categoryName = learningDataService.findCategoryName(learningDataUpdateRequest.getCategoryId());
+            model.addAttribute("categoryName", categoryName);
+            
             return "/user/skilledit";
         }
         // 現在認証されているユーザーを取得
@@ -83,19 +86,32 @@ public class LearningDataController {
         // ユーザーIDを設定
         learningDataUpdateRequest.setUserId(userDetails.getId());
         
+        // 学習項目の重複チェック
+        if (learningDataService.isStudyNameDuplicate(learningDataUpdateRequest.getStudyName(), userDetails.getId())) {
+        	//エラーメッセージの表示
+        	String errorMessage = String.format("%sは既に登録されています", learningDataUpdateRequest.getStudyName());
+        	result.rejectValue("studyName", "error.studyName", errorMessage);
+        	
+            // カテゴリ名をモデルに追加
+            String categoryName = learningDataService.findCategoryName(learningDataUpdateRequest.getCategoryId());
+            model.addAttribute("categoryName", categoryName);
+            
+            return "/user/skilledit";
+        }
+        
+        
         // 学習項目の追加
         learningDataMapper.insertLearningData(learningDataUpdateRequest);
         return "redirect:/user/category";
 
-                
-        // 重複チェック
-//        if (learningDataMapper.countByStudyName(userUpdateRequest.getStudyName(), userDetails.getId()) > 0) {
-//            result.rejectValue("studyName", "error.studyName", "同じ名前の項目が既に存在します");
-//            return "/user/skilledit";
-//        }
-
-
     }
+    
+
+    
+
+
+
+
     
 
 }

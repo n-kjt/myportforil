@@ -73,7 +73,7 @@
               </tr>
             </thead>
             <tbody th:each="entry : ${groupedByCategory}">
-              <tr:block th:if="${entry.categoryId == 3}">
+              <tr:block th:if="${entry.categoryId == 1}">
               
             <td th:text="${entry.studyName}">Ruby(項目名)</td>
               <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"th:value="${entry.studyTime}"></td>
