@@ -18,7 +18,7 @@
 				
 				<h1 th:text="${categoryName} + 'を追加'"></h1>
 				
-                <form th:action="@{/user/skilledit}"th:object="${learningDataUpdateRequest}"th:method="post" >
+                <form th:action="@{/user/skilledit}" th:object="${learningDataUpdateRequest}" th:method="post" >
 					
 					  <input type="hidden" th:field="*{categoryId}" name="category_id"><!-- valueを前ページで選択したカテゴリごとに変わるようにする-->
 					  <input type="hidden" th:field="*{userId}" name="user_id"><!--DBへの登録の際、ログインユーザのIDが取得出来るよう設定-->

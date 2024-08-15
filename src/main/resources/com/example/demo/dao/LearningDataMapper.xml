@@ -34,10 +34,18 @@
     WHERE id = #{categoryId}        
     </select>
     
-<!--  学習項目の重複をチェック-->
- <select id="countStudyName" parameterType="map" resultType="int">
-        SELECT COUNT(*)
-        FROM learning_data
-        WHERE name = #{studyName} AND user_id = #{userId}
-    </select>
+    
+<!-- 学習時間の更新 -->
+<update id="updateStudyTime" parameterType="com.example.demo.dto.LearningDataUpdateRequest">
+    UPDATE learning_data
+    SET study_time = #{studyTime}
+    WHERE id = #{id} AND user_id = #{userId}
+</update>
+
+
+    <!-- 論理削除 -->
+<!--    <update id="deleteStudyItem">-->
+<!--        UPDATE learning_data SET delete_date = CURRENT_TIMESTAMP WHERE id = #{id}-->
+<!--    </update>-->
+    
 </mapper>

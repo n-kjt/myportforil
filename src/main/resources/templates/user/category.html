@@ -15,12 +15,11 @@
   <main>
     <div class="container">
 		
-		
       <div class="skill-column">
-        <form id="skill-introduction-form">
+        <form id="skill-introduction-form" method="post" th:action="@{/user/skilledit}">		
           <div class="d-flex justify-content-between mb-3">
-			<input type="hidden" th:value="${categoryId}" name="id" > 
-			<input type="hidden" th:field="${userId}" name="userId">
+			<input type="hidden" name="id" th:value="${id}">
+			<input type="hidden" name="userId" th:value="${userId}">			
             <h2 class="ttl_border w-40"style="width:200px;">バックエンド</h2>
             <div class="">
 			  <input type="button" onclick="location.href='./skilledit?category_id=2'" value="項目を追加する" class="btn btn-primary"/>
@@ -42,8 +41,9 @@
                 <tr:block th:if="${entry.categoryId == 2}">
                 
               <td th:text="${entry.studyName}">Ruby(項目名)</td>
-                <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"th:value="${entry.studyTime}"></td>
-                <td class="text-center"	><button class="btn btn-add">学習時間を保存する</button></td>
+			  <td><input type="number" name="studyTime" min="0" class="form-select" th:value="${entry.studyTime}">
+			  <input type="hidden" name="action" value="update" /></td>
+                <td class="text-center"	><button class="btn btn-add" type="submit">学習時間を保存する</button></td>
                 <td class="text-center"><button class="btn btn-delete">削除する</button></td>
                 </tr:block>
                 </tbody>
@@ -54,8 +54,10 @@
 	  
 	  
       <div class="skill-column">
-        <form id="skill-introduction-form">
+        <form id="skill-introduction-form" method="post" th:action="@{/user/skilledit}">
           <div class="d-flex justify-content-between mb-3">
+			<input type="hidden" name="id" th:value="${id}">
+			<input type="hidden" name="userId" th:value="${userId}">
             <h2 class="ttl_border"style="width:200px;">フロントエンド</h2>
             <div class="">
 				<input type="button" onclick="location.href='./skilledit?category_id=1'" value="項目を追加する" class="btn btn-primary"/>
@@ -74,10 +76,10 @@
             </thead>
             <tbody th:each="entry : ${groupedByCategory}">
               <tr:block th:if="${entry.categoryId == 1}">
-              
             <td th:text="${entry.studyName}">Ruby(項目名)</td>
-              <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"th:value="${entry.studyTime}"></td>
-              <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+			<td><input type="number" name="studyTime" min="0" class="form-select" th:value="${entry.studyTime}">
+			<input type="hidden" name="action" value="update" /></td>
+              <td class="text-center"><button class="btn btn-add" type="submit">学習時間を保存する</button></td>
               <td class="text-center"><button class="btn btn-delete">削除する</button></td>
               </tr:block>
               </tbody>
@@ -87,8 +89,10 @@
 	  
 	  
       <div class="skill-column">
-        <form id="skill-introduction-form">
+        <form id="skill-introduction-form" method="post" th:action="@{/user/skilledit}">
           <div class="d-flex justify-content-between mb-3">
+			<input type="hidden" name="id" th:value="${id}">
+			<input type="hidden" name="userId" th:value="${userId}">
             <h2 class="ttl_border w-40"style="width:150px;">インフラ</h2>
             <div class="">
 				<input type="button" onclick="location.href='./skilledit?category_id=3'" value="項目を追加する" class="btn btn-primary"/>
@@ -109,8 +113,9 @@
               <tr:block th:if="${entry.categoryId == 3}">
               
             <td th:text="${entry.studyName}">Ruby(項目名)</td>
-              <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"th:value="${entry.studyTime}"></td>
-              <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
+			<td><input type="number" name="studyTime" min="0" class="form-select" th:value="${entry.studyTime}">
+			<input type="hidden" name="action" value="update" /></td>
+              <td class="text-center"><button class="btn btn-add" type="submit">学習時間を保存する</button></td>
               <td class="text-center"><button class="btn btn-delete">削除する</button></td>
               </tr:block>
               </tbody>

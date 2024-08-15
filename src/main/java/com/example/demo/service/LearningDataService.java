@@ -35,5 +35,19 @@ public class LearningDataService {
         return learningDataMapper.countByStudyName(studyName, userId) > 0;
     }
     
+	//学習時間の更新
+	public void updateStudyTime(LearningDataUpdateRequest learningDataUpdateRequest) {
+		learningDataMapper.updateStudyTime(learningDataUpdateRequest);
+		
+	}
+
+    
+    /**
+     * 学習時間を削除
+     */
+//    public void deleteStudyItem(Long id) {
+//    	learningDataMapper.deleteStudyItem(id);
+//    }
+    
     }
 

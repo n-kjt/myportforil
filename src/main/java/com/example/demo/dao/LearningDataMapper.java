@@ -25,17 +25,17 @@ public interface LearningDataMapper {
     int countByStudyName(@Param("studyName") String studyName, @Param("userId") long userId);
     
     
-    /**
-     * 学習時間を登録するためのメソッド
-     */
+    // 学習時間を登録
     void insertLearningData(LearningDataUpdateRequest learningDataUpdateRequest);
     
-    /**
-     * カテゴリ名を取得
-     */
+    //カテゴリ名を取得
     String findCategoryName(int categoryId);
     
-   
     
-  
+    // 学習時間を更新
+    void updateStudyTime(LearningDataUpdateRequest learningDataUpdateRequest);
+
+//    //学習情報の論理削除
+//    void deleteStudyItem(Long id);
+//  
 }

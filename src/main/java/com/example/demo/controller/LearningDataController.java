@@ -10,6 +10,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.authentication.CustomUserDetails;
@@ -27,9 +29,9 @@ public class LearningDataController {
     private final LearningDataService learningDataService;
 
     @Autowired
-    public LearningDataController(LearningDataMapper learningDataMapper, LearningDataService leaningDataService) {
+    public LearningDataController(LearningDataMapper learningDataMapper, LearningDataService learningDataService) {
         this.learningDataMapper = learningDataMapper;
-        this.learningDataService = leaningDataService;  
+        this.learningDataService = learningDataService;  
         }
 
 //    ページに項目と時間を表示
@@ -48,7 +50,7 @@ public class LearningDataController {
         return "/user/category";
     }
     
-
+//自己紹介を追加・編集
     @GetMapping("/user/skilledit")
     public String skillEdit(@RequestParam("category_id") int categoryId, Model model) {
         // 現在認証されているユーザーを取得
@@ -67,6 +69,7 @@ public class LearningDataController {
 
         return "/user/skilledit";
     }
+    
 
     
     @PostMapping("/user/skilledit")//サーバーの変更時はPostMappingを使用する
@@ -104,5 +107,31 @@ public class LearningDataController {
         return "redirect:/user/category";
 
     }
+    
+    
+    
+
+//学習時間の更新
+    @RequestMapping(value = "/user/category" ,method = RequestMethod.POST)
+    public String updateStudyTime(@ModelAttribute LearningDataUpdateRequest learningDataUpdateRequest, @RequestParam String action,Model model,Authentication authentication) {
+    	if (action.equals("updateStudyTime")) {
+    		learningDataService.updateStudyTime(learningDataUpdateRequest);// 学習時間の更新処理
+		   }
+        return "redirect:/user/category";
+    }
+
+
+
+
+    
+    /**
+     * 学習項目の削除
+     */
+//    @GetMapping("/user/{id}/delete")
+//    public String deleteStudyItem(@PathVariable Long id, Model model) {
+//        // ユーザー情報の削除
+//    	learningDataService.deleteStudyItem(id);
+//        return "redirect:/user/category";
+//    }
 
 }
