@@ -17,4 +17,7 @@ public interface LearningDataMapper {
 	//学習時間を更新
 	void updateStudyTime(StudyTimeUpdateRequest request);
 
+//	//学習データを削除
+	void deleteData(StudyTimeUpdateRequest request);
+
 }

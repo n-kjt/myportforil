@@ -2,8 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    <mapper namespace="com.example.demo.dao.LearningDataMapper">	
-
+    <mapper namespace="com.example.demo.dao.LearningDataMapper">
+    
+    <!--   学習項目の追加-->
     <select id="getLearningData" resultType="com.example.demo.entity.LearningData">    
     SELECT ld.id, ld.name, ld.study_time, ld.category_id, ld.user_id,
        ld.created_at, ld.updated_at,
@@ -20,6 +21,11 @@
        SET study_time = #{studyTime}, updated_at = CURRENT_TIMESTAMP
        WHERE user_id = #{userId} AND id = #{entryId}
        </update>
+       
+       <!--   学習時間の削除-->
+    <update id="delete" parameterType="com.example.demo.dto.StudyTimeUpdateRequest">
+        UPDATE learning_data
+        WHERE user_id = #{userId} AND id = #{entryId}
+    </update>
         
-
 </mapper>

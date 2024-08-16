@@ -31,7 +31,7 @@ public class LearningDataController {
     }
 
 
-    
+//    学習項目の追加
     @GetMapping("/user/category")
     public String getLearningData(Model model) {//getLearningDataはSQLから情報を引っ張ってきている
         // 現在認証されているユーザーを取得
@@ -40,7 +40,6 @@ public class LearningDataController {
         
         // ユーザーIDをモデルに追加(modelに追加するとHTML内で使えるようになる)
         model.addAttribute("userId", userDetails.getId());// userDetails.getId()をuserIdという名前で使えるようにする
-        model.addAttribute("id", userDetails.getId());// userDetails.getId()をuserIdという名前で使えるようにする
 
         // 学習データをカテゴリ別にグループ化してモデルに追加
         model.addAttribute("groupedByCategory", learningDataMapper.getLearningData(userDetails.getId()));
@@ -48,11 +47,15 @@ public class LearningDataController {
         return "/user/category";
     }
     
+//    学習項目の変更と削除
     @RequestMapping(value="/user/category", method=RequestMethod.POST)      
     	public String updateStudyTime(@ModelAttribute StudyTimeUpdateRequest studyTimeUpdateRequest,@RequestParam String action,Model model,Authentication authentication) {
     		
         if ("update".equals(action)) {
             studyTimeUpdateService.updateStudyTime(studyTimeUpdateRequest);}
+        else if ("update".equals(action)) {
+            studyTimeUpdateService.deleteData(studyTimeUpdateRequest);
+        }
         
     		// 成功ページへリダイレクト
     	        return "redirect:/user/category";
