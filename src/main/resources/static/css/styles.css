@@ -168,8 +168,14 @@ textarea:focus {
   padding: 8px 40px;
 }
 input.form-select{
-	padding: .375rem .1em .375rem .75rem;
-	background-image:none;
+	padding: .375rem .37em .375rem .75rem;
+	background-image: none;
+    width: auto;
+    height: 46px;
+	
+}
+.table>:not(:last-child)>:last-child>*{
+	border-bottom-color:inherit;
 }
 @media(min-width: 768px){
     .container{

@@ -14,102 +14,140 @@
   </header>
   <main>
     <div class="container">
-      <div class="skill-column">
-        <form id="skill-introduction-form">
-          <div class="d-flex justify-content-between mb-3">
-            <input type="hidden" th:field="${userId}" name="userId">
-            <h2 class="ttl_border w-40"style="width:200px;">バックエンド</h2>
-            <div class="">
-              <a class="btn btn-primary" th:href="@{/user/skilladd}">項目を追加する</a>
-            </div>
-          </div>
-          <div>
-            <table class="table border rounded-3" 
-			style="border-collapse: separate;
-			border-spacing: 0;">
-              <thead>
-              <th scope="col" class="col-3">項目名</th>
-                <th scope="col" class="col-3">学習時間</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-              </thead>
-              
-              <tbody th:each="entry : ${groupedByCategory}">
-                <tr:block th:if="${entry.categoryId == 2}">
-                
-              <td th:text="${entry.name}">Ruby(項目名)</td>
-                <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"th:value="${entry.studyTime}"></td>
-                <td class="text-center"	><button class="btn btn-add">学習時間を保存する</button></td>
-                <td class="text-center"><button class="btn btn-delete">削除する</button></td>
-                </tr:block>
-                </tbody>
-            </table>
-          </div>
-        </form>
-      </div>
-      <div class="skill-column">
-        <form id="skill-introduction-form">
-          <div class="d-flex justify-content-between mb-3">
-            <h2 class="ttl_border"style="width:200px;">フロントエンド</h2>
-            <div class="">
-				<a class="btn btn-primary" th:href="@{/user/skilladd}" >項目を追加する</a>
-            </div>
-          </div>
-		  <table class="table border rounded-3" 
-		  style="border-collapse: separate;
-		  border-spacing: 0;">
-            <thead>
-              <tr>
-                <th scope="col" class="col-3">項目名</th>
-                <th scope="col" class="col-3">学習時間</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody th:each="entry : ${groupedByCategory}">
-              <tr:block th:if="${entry.categoryId == 1}">
-              
-            <td th:text="${entry.name}">Ruby(項目名)</td>
-              <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"th:value="${entry.studyTime}"></td>
-              <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
-              <td class="text-center"><button class="btn btn-delete">削除する</button></td>
-              </tr:block>
-              </tbody>
-          </table>
-        </form>
-      </div>
-      <div class="skill-column">
-        <form id="skill-introduction-form">
-          <div class="d-flex justify-content-between mb-3">
-            <h2 class="ttl_border w-40"style="width:150px;">インフラ</h2>
-            <div class="">
-				<a class="btn btn-primary" th:href="@{/user/skilladd}">項目を追加する</a>
-            </div>
-          </div>
-		  <table class="table border rounded-3" 
-		  style="border-collapse: separate;
-		  border-spacing: 0;">
-            <thead>
-              <tr>
-                <th scope="col" class="col-3">項目名</th>
-                <th scope="col" class="col-3">学習時間</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody th:each="entry : ${groupedByCategory}">
-              <tr:block th:if="${entry.categoryId == 3}">
-              
-            <td th:text="${entry.name}">Ruby(項目名)</td>
-              <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" class="form-select"th:value="${entry.studyTime}"></td>
-              <td class="text-center"><button class="btn btn-add">学習時間を保存する</button></td>
-              <td class="text-center"><button class="btn btn-delete">削除する</button></td>
-              </tr:block>
-              </tbody>
-          </table>
-        </form>
-      </div>
+		<div class="skill-column">
+		  <div class="d-flex justify-content-between mb-3">
+		    <h2 class="ttl_border w-40" style="width:200px;">バックエンド</h2>
+		    <div class="">
+		      <a class="btn btn-primary" th:href="@{/user/skilladd}">項目を追加する</a>
+		    </div>
+		  </div>
+		  <table class="table border rounded-3" style="border-collapse: separate; border-spacing: 0;">
+		    <thead>
+		      <tr>
+		        <th scope="col" class="col-3">項目名</th>
+		        <th scope="col" class="col-3">学習時間</th>
+		        <th scope="col"></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr th:each="entry : ${groupedByCategory}" th:if="${entry.categoryId == 2}">
+		        <td th:text="${entry.name}">Ruby(項目名)</td>
+				<!-- 学習時間の更新用フォーム -->
+		        <td style="width: 56%;">
+		          <form th:action="@{/user/category}" method="post" class="	d-flex justify-content-between">
+		            <input type="hidden" name="userId" th:value="${userId}">
+		            <input type="hidden" name="entryId" th:value="${entry.id}">
+					<input type="hidden" name="action" value="update" />
+		            <input type="number" name="studyTime" min="0" class="form-select" th:value="${entry.studyTime}">
+		            <button class="btn btn-add" type="submit">学習時間を保存する</button>
+		          </form>
+		        </td>
+				
+				<!-- 削除ボタン用フォーム -->
+		        <td>
+		          <form th:action="@{/user/category}" method="post">
+		            <input type="hidden" name="userId" th:value="${userId}">
+		            <input type="hidden" name="entryId" th:value="${entry.id}">
+					<input type="hidden" name="action" value="delete" />
+		            <button class="btn btn-delete" type="submit">削除する</button>
+		          </form>
+		        </td>
+		      </tr>
+		    </tbody>
+		  </table>
+		</div>
+
+
+		<div class="skill-column">
+		  <div class="d-flex justify-content-between mb-3">
+		    <h2 class="ttl_border" style="width:200px;">フロントエンド</h2>
+		    <div>
+		      <a class="btn btn-primary" th:href="@{/user/skilladd}">項目を追加する</a>
+		    </div>
+		  </div>
+		  <table class="table border rounded-3" style="border-collapse: separate; border-spacing: 0;">
+		    <thead>
+		      <tr>
+		        <th scope="col" class="col-3">項目名</th>
+		        <th scope="col" class="col-3">学習時間</th>
+		        <th scope="col"></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <!-- エントリがフロントエンドカテゴリ (categoryId == 1) の場合のみ表示 -->
+		      <tr th:each="entry : ${groupedByCategory}"  th:if="${entry.categoryId == 1}">
+		        <td th:text="${entry.name}">Ruby(項目名)</td>
+		        
+		        <!-- 学習時間の更新用フォーム -->
+		        <td	style="width: 56%;">
+		          <form th:action="@{/user/category}" method="post"	class="	d-flex justify-content-between">
+		            <input type="hidden" name="userId" th:value="${userId}">
+					<input type="hidden" name="entryId" th:value="${entry.id}">
+					<input type="hidden" name="action" value="update" />
+		            <input type="number" name="studyTime" min="0" class="form-select" th:value="${entry.studyTime}">
+		            <button class="btn btn-add" type="submit">学習時間を保存する</button>
+		          </form>
+		        </td>
+		
+		        <!-- 削除ボタン用フォーム -->
+		        <td class="text-center">
+		          <form th:action="@{/user/category}" method="post">
+		            <input type="hidden" name="userId" th:value="${userId}">
+		            <input type="hidden" name="id" th:value="${entry.id}">
+					<input type="hidden" name="action" value="delete" />
+		            <button class="btn btn-delete" type="submit">削除する</button>
+		          </form>
+		        </td>
+		      </trth:each="entry : ${groupedByCategory}" >
+		    </tbody>
+		  </table>
+		</div>
+		
+		<div class="skill-column">
+		  <div class="d-flex justify-content-between mb-3">
+		    <h2 class="ttl_border w-40" style="width:150px;">インフラ</h2>
+		    <div>
+		      <a class="btn btn-primary" th:href="@{/user/skilladd}">項目を追加する</a>
+		    </div>
+		  </div>
+		  <table class="table border rounded-3" style="border-collapse: separate; border-spacing: 0;">
+		    <thead>
+		      <tr>
+		        <th scope="col" class="col-3">項目名</th>
+		        <th scope="col" class="col-3">学習時間</th>
+		        <th scope="col"></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <!-- エントリがインフラカテゴリ (categoryId == 3) の場合のみ表示 -->
+		      <tr th:each="entry : ${groupedByCategory}" th:if="${entry.categoryId == 3}">
+		        <td th:text="${entry.name}">Ruby(項目名)</td>
+		
+		        <!-- 学習時間の更新用フォーム -->
+		        <td	style="width: 56%;">
+		          <form th:action="@{/user/category}" method="post"	class="	d-flex justify-content-between">
+		            <input type="hidden" name="userId" th:value="${userId}">
+					<input type="hidden" name="entryId" th:value="${entry.id}">
+					<input type="hidden" name="action" value="update" />
+		            <input type="number" name="studyTime" min="0" class="form-select" th:value="${entry.studyTime}">
+		            <button class="btn btn-add" type="submit">学習時間を保存する</button>
+		          </form>
+		        </td>
+		
+		        <!-- 削除ボタン用フォーム -->
+		        <td class="text-center">
+		          <form th:action="@{/user/category}" method="post">
+		            <input type="hidden" name="userId" th:value="${userId}">
+		            <input type="hidden" name="id" th:value="${entry.id}">
+					<input type="hidden" name="action" value="delete" />
+		            <button class="btn btn-delete" type="submit">削除する</button>
+		          </form>
+		        </td>
+		      </tr>
+		    </tbody>
+		  </table>
+		</div>
+	  
     </div>
   </main>
   <footer class="footer">
