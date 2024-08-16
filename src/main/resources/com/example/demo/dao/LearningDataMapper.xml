@@ -16,16 +16,15 @@
     </select> 
        
        <!--   学習時間の更新-->
-       <update id="updateStudyTime" parameterType="com.example.demo.dto.StudyTimeUpdateRequest">
+       <update id="updateStudyTime">
        UPDATE learning_data
        SET study_time = #{studyTime}, updated_at = CURRENT_TIMESTAMP
        WHERE user_id = #{userId} AND id = #{entryId}
        </update>
        
-       <!--   学習時間の削除-->
-    <update id="delete" parameterType="com.example.demo.dto.StudyTimeUpdateRequest">
-        UPDATE learning_data
-        WHERE user_id = #{userId} AND id = #{entryId}
-    </update>
-        
+ <!-- 学習データの削除 -->
+  <delete id="deleteData" >
+  delete from learning_data
+  where id = #{entryId}
+  </delete>
 </mapper>

@@ -53,7 +53,7 @@ public class LearningDataController {
     		
         if ("update".equals(action)) {
             studyTimeUpdateService.updateStudyTime(studyTimeUpdateRequest);}
-        else if ("update".equals(action)) {
+        else if ("delete".equals(action)) {
             studyTimeUpdateService.deleteData(studyTimeUpdateRequest);
         }
         

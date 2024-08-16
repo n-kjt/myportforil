@@ -47,7 +47,7 @@
 		        <td>
 		          <form th:action="@{/user/category}" method="post">
 		            <input type="hidden" name="userId" th:value="${userId}">
-		            <input type="hidden" name="entryId" th:value="${entry.id}">
+					<input type="hidden" name="entryId" th:value="${entry.id}">
 					<input type="hidden" name="action" value="delete" />
 		            <button class="btn btn-delete" type="submit">削除する</button>
 		          </form>
@@ -93,7 +93,7 @@
 		        <td class="text-center">
 		          <form th:action="@{/user/category}" method="post">
 		            <input type="hidden" name="userId" th:value="${userId}">
-		            <input type="hidden" name="id" th:value="${entry.id}">
+					<input type="hidden" name="entryId" th:value="${entry.id}">
 					<input type="hidden" name="action" value="delete" />
 		            <button class="btn btn-delete" type="submit">削除する</button>
 		          </form>
@@ -138,7 +138,7 @@
 		        <td class="text-center">
 		          <form th:action="@{/user/category}" method="post">
 		            <input type="hidden" name="userId" th:value="${userId}">
-		            <input type="hidden" name="id" th:value="${entry.id}">
+					<input type="hidden" name="entryId" th:value="${entry.id}">
 					<input type="hidden" name="action" value="delete" />
 		            <button class="btn btn-delete" type="submit">削除する</button>
 		          </form>
