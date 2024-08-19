@@ -28,15 +28,15 @@ public class LearningData implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getName() {
+    
+    public String getStudyName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudyName(String studyName) {
+        this.name = studyName;
     }
-
+    
     public int getStudyTime() {
         return study_time;
     }
