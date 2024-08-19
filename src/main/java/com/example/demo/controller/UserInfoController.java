@@ -117,6 +117,7 @@ public class UserInfoController {
 	    // CustomUserDetailsオブジェクトを取得
         CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
         String userName = auth.getName();
         model.addAttribute("userName", userName);//Attributeで指定するとHTMLで表示できるようになる
         
