@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="com.example.demo.dao.LearningDataMapper">
     
-    <!--   学習項目の追加-->
+    <!--   学習項目とユーザー情報を取得-->
     <select id="getLearningData" resultType="com.example.demo.entity.LearningData">    
     SELECT ld.id, ld.name, ld.study_time, ld.category_id, ld.user_id,
        ld.created_at, ld.updated_at,
@@ -15,7 +15,28 @@
        ORDER BY ld.category_id;
 
     </select> 
-       
+<!--  カテゴリ名を抽出-->
+    <select id="findCategoryName" parameterType="int" resultType="string">
+    SELECT name
+    FROM categories
+    WHERE id = #{categoryId}        
+    </select>
+    
+<!--  学習項目の追加-->
+    <insert id="insertLearningData" parameterType="com.example.demo.dto.LearningDataUpdateRequest">
+        INSERT INTO learning_data (name, study_time, category_id,user_id, created_at, updated_at)
+        VALUES (#{studyName}, #{studyTime}, #{categoryId}, #{userId}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+    
+
+  
+<!--  学習項目の重複をチェック-->
+ <select id="countByStudyName" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM learning_data
+        WHERE name = #{studyName} AND user_id = #{userId}
+    </select>
+    
        <!--   学習時間の更新-->
        <update id="updateStudyTime">
        UPDATE learning_data

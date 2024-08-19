@@ -36,7 +36,7 @@ public class LearningData implements Serializable {
     public void setStudyName(String studyName) {
         this.name = studyName;
     }
-
+    
     public int getStudyTime() {
         return study_time;
     }

@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -9,23 +8,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.authentication.CustomUserDetails;
 import com.example.demo.dao.LearningDataMapper;
-
-import com.example.demo.dto.StudyTimeUpdateRequest;
-import com.example.demo.service.StudyTimeUpdateService;
-
 import com.example.demo.dto.LearningDataUpdateRequest;
+import com.example.demo.dto.StudyTimeUpdateRequest;
 import com.example.demo.service.LearningDataService;
-
+import com.example.demo.service.StudyTimeUpdateService;
 
 /**
  * 学習データ情報 Controller
@@ -34,45 +27,34 @@ import com.example.demo.service.LearningDataService;
 public class LearningDataController {
 
     private final LearningDataMapper learningDataMapper;
-
     private final StudyTimeUpdateService studyTimeUpdateService;
+    private final LearningDataService learningDataService;
     
     //@Autowired
-    public LearningDataController(LearningDataMapper learningDataService,StudyTimeUpdateService studyTimeUpdateService) {
-        this.learningDataMapper = learningDataService;
+    public LearningDataController(LearningDataMapper learningDataMapper,StudyTimeUpdateService studyTimeUpdateService,LearningDataService learningDataService) {
+    	this.learningDataMapper = learningDataMapper;
+        this.learningDataService = learningDataService;  
         this.studyTimeUpdateService = studyTimeUpdateService;
     }
 
-    private final LearningDataService learningDataService;
-
 
 //    学習項目の追加
-
-    @Autowired
-    public LearningDataController(LearningDataMapper learningDataMapper, LearningDataService leaningDataService) {
-        this.learningDataMapper = learningDataMapper;
-        this.learningDataService = leaningDataService;  
-        }
-
-
-//    ページに項目と時間を表示
-
     @GetMapping("/user/category")
-    public String getLearningData(Model model) {
+    public String getLearningData(Model model) {//getLearningDataはSQLから情報を引っ張ってきている
         // 現在認証されているユーザーを取得
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-
-        // ユーザーIDをモデルに追加
-        model.addAttribute("userId", userDetails.getId());
+        
+        // ユーザーIDをモデルに追加(modelに追加するとHTML内で使えるようになる)
+        model.addAttribute("userId", userDetails.getId());// userDetails.getId()をuserIdという名前で使えるようにする
 
         // 学習データをカテゴリ別にグループ化してモデルに追加
         model.addAttribute("groupedByCategory", learningDataMapper.getLearningData(userDetails.getId()));
-
+        
         return "/user/category";
     }
     
-
+    //学習項目を追加
     @GetMapping("/user/skilledit")
     public String skillEdit(@RequestParam("category_id") int categoryId, Model model) {
         // 現在認証されているユーザーを取得
@@ -84,14 +66,7 @@ public class LearningDataController {
         learningDataUpdateRequest.setCategoryId(categoryId);
         learningDataUpdateRequest.setUserId(userDetails.getId()); // ユーザーIDを設定
         
-
-        // ユーザーIDをモデルに追加(modelに追加するとHTML内で使えるようになる)
-        model.addAttribute("userId", userDetails.getId());// userDetails.getId()をuserIdという名前で使えるようにする
-
-        // 学習データをカテゴリ別にグループ化してモデルに追加
-        model.addAttribute("groupedByCategory", learningDataMapper.getLearningData(userDetails.getId()));
-
-        //カテゴリー名を表示
+		//カテゴリー名を表示
         String categoryName = learningDataService.findCategoryName(categoryId);
         model.addAttribute("categoryName", categoryName);
         model.addAttribute("learningDataUpdateRequest", learningDataUpdateRequest);
@@ -128,15 +103,14 @@ public class LearningDataController {
             model.addAttribute("categoryName", categoryName);
             
             return "/user/skilledit";
-        }        
-
+        }
+        
         
         // 学習項目の追加
         learningDataMapper.insertLearningData(learningDataUpdateRequest);
         return "redirect:/user/category";
 
     }
-
     
 //    学習項目の変更と削除
     @RequestMapping(value="/user/category", method=RequestMethod.POST)      
@@ -154,7 +128,3 @@ public class LearningDataController {
 
     
 }
-
-
-}
-
