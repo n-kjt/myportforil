@@ -12,6 +12,18 @@
        LEFT JOIN categories c ON ld.category_id = c.id
        WHERE ld.user_id = #{userId}
        ORDER BY ld.category_id;
+
+    </select> 
+       
+       <!--   学習時間の更新-->
+       <update id="updateStudyTime" parameterType="com.example.demo.dto.StudyTimeUpdateRequest">
+       UPDATE learning_data
+       SET study_time = #{studyTime}, updated_at = CURRENT_TIMESTAMP
+       WHERE user_id = #{userId} AND id = #{entryId}
+       </update>
+        
+
+
     </select>
     
 <!--  学習項目の重複の確認-->
@@ -40,4 +52,5 @@
         FROM learning_data
         WHERE name = #{studyName} AND user_id = #{userId}
     </select>
+
 </mapper>

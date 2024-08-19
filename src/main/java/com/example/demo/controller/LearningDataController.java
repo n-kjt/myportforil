@@ -9,13 +9,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.authentication.CustomUserDetails;
 import com.example.demo.dao.LearningDataMapper;
+
+import com.example.demo.dto.StudyTimeUpdateRequest;
+import com.example.demo.service.StudyTimeUpdateService;
+
 import com.example.demo.dto.LearningDataUpdateRequest;
 import com.example.demo.service.LearningDataService;
+
 
 /**
  * 学習データ情報 Controller
@@ -24,6 +34,15 @@ import com.example.demo.service.LearningDataService;
 public class LearningDataController {
 
     private final LearningDataMapper learningDataMapper;
+
+    private final StudyTimeUpdateService studyTimeUpdateService;
+    
+    //@Autowired
+    public LearningDataController(LearningDataMapper learningDataService,StudyTimeUpdateService studyTimeUpdateService) {
+        this.learningDataMapper = learningDataService;
+        this.studyTimeUpdateService = studyTimeUpdateService;
+    }
+
     private final LearningDataService learningDataService;
 
     @Autowired
@@ -31,6 +50,7 @@ public class LearningDataController {
         this.learningDataMapper = learningDataMapper;
         this.learningDataService = leaningDataService;  
         }
+
 
 //    ページに項目と時間を表示
     @GetMapping("/user/category")
@@ -60,6 +80,14 @@ public class LearningDataController {
         learningDataUpdateRequest.setCategoryId(categoryId);
         learningDataUpdateRequest.setUserId(userDetails.getId()); // ユーザーIDを設定
         
+
+        // ユーザーIDをモデルに追加(modelに追加するとHTML内で使えるようになる)
+        model.addAttribute("userId", userDetails.getId());// userDetails.getId()をuserIdという名前で使えるようにする
+        model.addAttribute("id", userDetails.getId());// userDetails.getId()をuserIdという名前で使えるようにする
+
+        // 学習データをカテゴリ別にグループ化してモデルに追加
+        model.addAttribute("groupedByCategory", learningDataMapper.getLearningData(userDetails.getId()));
+
         //カテゴリー名を表示
         String categoryName = learningDataService.findCategoryName(categoryId);
         model.addAttribute("categoryName", categoryName);
@@ -98,6 +126,7 @@ public class LearningDataController {
             
             return "/user/skilledit";
         }        
+
         
         // 学習項目の追加
         learningDataMapper.insertLearningData(learningDataUpdateRequest);
@@ -105,4 +134,20 @@ public class LearningDataController {
 
     }
 
+    
+    @RequestMapping(value="/user/category", method=RequestMethod.POST)      
+    	public String updateStudyTime(@ModelAttribute StudyTimeUpdateRequest studyTimeUpdateRequest,@RequestParam String action,Model model,Authentication authentication) {
+    		
+        if ("update".equals(action)) {
+            studyTimeUpdateService.updateStudyTime(studyTimeUpdateRequest);}
+        
+    		// 成功ページへリダイレクト
+    	        return "redirect:/user/category";
+    }
+
+    
 }
+
+
+}
+
