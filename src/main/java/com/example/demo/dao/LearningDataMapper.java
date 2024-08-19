@@ -23,6 +23,10 @@ public interface LearningDataMapper {
 	void updateStudyTime(StudyTimeUpdateRequest request);
 
 
+	//学習データを削除
+	void deleteData(StudyTimeUpdateRequest request);
+
+
     
     
     /**
@@ -44,5 +48,6 @@ public interface LearningDataMapper {
    
     
   
+
 
 }

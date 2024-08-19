@@ -13,9 +13,16 @@ public class StudyTimeUpdateService {
     public StudyTimeUpdateService(LearningDataMapper learningDataMapper) {
         this.learningDataMapper = learningDataMapper;
     }
-
+    
+//    学習データの更新
     @Transactional
     public void updateStudyTime(StudyTimeUpdateRequest request) {
         learningDataMapper.updateStudyTime(request);
+    }
+    
+//    学習データの削除
+    @Transactional
+    public void deleteData(StudyTimeUpdateRequest request) {
+        learningDataMapper.deleteData(request);
     }
 }
