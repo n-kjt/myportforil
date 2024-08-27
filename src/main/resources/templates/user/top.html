@@ -41,31 +41,67 @@
         </div>
         <div class="form-group">
 			<canvas id="skillChart"></canvas>
-			<script>
-				window.onload = function 複系列棒グラフ() {
-				    var ctx = document.getElementById("skillChart").getContext('2d');;
-				    var skillChart = new Chart(ctx, {
-				        type: "bar",
-						data: {
-						  labels: ['先々月', '先月', '今月'],
-						  datasets: [{
-						    label: "バックエンド",
-						    data:[10, 10, 10],
-						    backgroundColor: ['#f3b5c2']
-						  },{
-						    label: "フロントエンド",
-						    data: [10, 10, 10],
-						    backgroundColor: ['#f7d1aa']
-						  },{
-						    label: "インフラ",
-						    data: [10, 10, 10],
-						    backgroundColor: ['#fae6b5']
-						  }],
-						},
-				    });
-				}
+<script th:inline="javascript">
+    /*<![CDATA[*/
+	var monthlyCategoryData = /*[[${monthlyCategoryData}]]*/ [];
 
-			</script>
+    // カテゴリ別のデータを整理
+    var months = ['今月', '先月', '来月'];
+    var categories = {1: 'バックエンド', 2: 'フロントエンド', 3: 'インフラ'};
+    var datasets = [];
+    var categoryData = {};
+
+    // データの初期化
+    months.forEach(function(month) {
+        datasets.forEach(function(dataset) {
+            dataset.data.push(0);
+        });
+    });
+
+    // データの準備
+    monthlyCategoryData.forEach(function(item) {
+        var monthIndex = months.indexOf(item.month);
+        if (monthIndex !== -1) {
+            if (!categoryData[item.category_id]) {
+                categoryData[item.category_id] = [0, 0, 0]; // 先月、今月、来月
+            }
+            categoryData[item.category_id][monthIndex] = item.total_study_time;
+        }
+    });
+
+    // データセットの作成
+    for (var categoryId in categoryData) {
+        datasets.push({
+            label: categories[categoryId],
+            data: categoryData[categoryId],
+            backgroundColor: getRandomColor(),
+            borderColor: getRandomColor(),
+            borderWidth: 1
+        });
+    }
+
+    // グラフの描画
+    var ctx = document.getElementById('skillChart').getContext('2d');
+    var skillChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: months,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: false
+                },
+                y: {
+                    stacked: false
+                }
+            }
+        }
+    });
+
+</script>
         </div>
       </div>
     </div>

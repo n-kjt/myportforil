@@ -1,8 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -129,21 +126,25 @@ public class LearningDataController {
     	        return "redirect:/user/category";
     }
     
-  @RequestMapping("/user/top")
-  public String getMonthlyCategoryData( Authentication loginUser, Model model) {
-      // 現在認証されているユーザーを取得
-      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-      CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+    
+//    @RequestMapping("/user/top")
+//    public String getMonthlyCategoryData( Authentication loginUser, Model model) {
+//        // 現在認証されているユーザーを取得
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+//
+//        // ユーザーIDを使用して月ごととカテゴリごとの学習時間データを取得
+//        List<Map<String, Object>> getmonthlyCategoryData = learningDataMapper.getMonthlyCategoryData(userDetails.getId());
+//
+//
+//        // データをモデルに追加して、ビューに渡す
+//        model.addAttribute("getmonthlyCategoryData", getmonthlyCategoryData);
+//
+//        return "/user/top"; // 表示するビューの名前
+//    }
 
-      // ユーザーIDを使用して月ごととカテゴリごとの学習時間データを取得
-      List<Map<String, Object>> getmonthlyCategoryData = learningDataMapper.getMonthlyCategoryData(userDetails.getId());
+    
 
-      
-      // データをモデルに追加して、ビューに渡す
-      model.addAttribute("getmonthlyCategoryData", getmonthlyCategoryData);
-
-      return "/user/top"; // 表示するビューの名前
   }
 
     
-}

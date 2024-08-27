@@ -62,7 +62,7 @@
 		  <div class="d-flex justify-content-between mb-3">
 		    <h2 class="ttl_border" style="width:200px;">フロントエンド</h2>
 		    <div>
-		      <a class="btn btn-primary" th:href="@{/user/skilledit(category_id=3)}">項目を追加する</a>
+		      <a class="btn btn-primary" th:href="@{/user/skilledit(category_id=1)}">項目を追加する</a>
 		    </div>
 		  </div>
 		  <table class="table border rounded-3" style="border-collapse: separate; border-spacing: 0;">
@@ -74,7 +74,7 @@
 		      </tr>
 		    </thead>
 		    <tbody>
-		      <!-- エントリがフロントエンドカテゴリ (categoryId == 1) の場合のみ表示 -->
+		      <!-- エントリがフロントエンドカテゴリ (categoryId == 3) の場合のみ表示 -->
 		      <tr th:each="entry : ${groupedByCategory}"  th:if="${entry.categoryId == 1}">
 		        <td th:text="${entry.studyName}">Ruby(項目名)</td>
 		        
@@ -107,7 +107,7 @@
 		  <div class="d-flex justify-content-between mb-3">
 		    <h2 class="ttl_border w-40" style="width:150px;">インフラ</h2>
 		    <div>
-		      <a class="btn btn-primary" th:href="@{/user/skilledit(category_id=2)}">項目を追加する</a>
+		      <a class="btn btn-primary" th:href="@{/user/skilledit(category_id=3)}">項目を追加する</a>
 		    </div>
 		  </div>
 		  <table class="table border rounded-3" style="border-collapse: separate; border-spacing: 0;">
@@ -119,7 +119,7 @@
 		      </tr>
 		    </thead>
 		    <tbody>
-		      <!-- エントリがインフラカテゴリ (categoryId == 3) の場合のみ表示 -->
+		      <!-- エントリがインフラカテゴリ (categoryId == 2) の場合のみ表示 -->
 		      <tr th:each="entry : ${groupedByCategory}" th:if="${entry.categoryId == 3}">
 		        <td th:text="${entry.studyName}">Ruby(項目名)</td>
 		

@@ -50,18 +50,18 @@
   </delete>
   
   <!--  学習データをカテゴリごと、月ごとに変更する -->
- <select id="getMonthlyCategoryData" >
-SELECT 
-    user_id,
-    category_id,
-    DATE_FORMAT(updated_at, '%Y-%m') AS month,
-    SUM(study_time) AS total_study_time
-FROM 
-    learning_data
-GROUP BY 
-    user_id, category_id, month;
-
-    </select>
-    
+  <select id="MonthlyCategoryData" parameterType="long" resultType="com.example.demo.dto.LearningDataTotalRequest">
+    SELECT 
+        user_id,
+        category_id,
+        DATE_FORMAT(updated_at, '%Y-%m') AS month,
+        SUM(study_time) AS total_study_time
+    FROM 
+        learning_data
+    WHERE 
+        user_id = #{userId}
+    GROUP BY 
+        user_id, category_id, DATE_FORMAT(updated_at, '%Y-%m');
+</select>
   
 </mapper>

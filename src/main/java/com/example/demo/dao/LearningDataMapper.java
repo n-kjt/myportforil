@@ -1,11 +1,11 @@
 package com.example.demo.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.example.demo.dto.LearningDataTotalRequest;
 import com.example.demo.dto.LearningDataUpdateRequest;
 import com.example.demo.dto.StudyTimeUpdateRequest;
 import com.example.demo.entity.LearningData;
@@ -13,7 +13,7 @@ import com.example.demo.entity.LearningData;
 @Mapper
 public interface LearningDataMapper {
 	
-	//ユーザー別に学習情報を検索
+	//ユーザー別に学習情報を検索	
     List<LearningData> getLearningData(@Param("userId") long userId);
     
      //学習項目の重複がないかを確認するためのメソッド
@@ -32,7 +32,9 @@ public interface LearningDataMapper {
 	void deleteData(StudyTimeUpdateRequest request);
 	
 	 // 月ごととカテゴリごとの学習時間の合計を取得
-    List<Map<String, Object>> getMonthlyCategoryData(@Param("userId") Long id);
+//	List<Map<String, Object>> MonthlyCategoryData(Long userId);
+
+	List<LearningDataTotalRequest> MonthlyCategoryData(@Param("userId") long userId);
 
 
 }

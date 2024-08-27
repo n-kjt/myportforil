@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.authentication.CustomUserDetails;
+import com.example.demo.dao.LearningDataMapper;
+import com.example.demo.dto.LearningDataTotalRequest;
 import com.example.demo.dto.UserAddRequest;
 import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.service.UserInfoService;
@@ -33,7 +35,8 @@ public class UserInfoController {
      */
     @Autowired
     private UserInfoService userInfoService;
-
+    @Autowired
+    private LearningDataMapper learningDataMapper;
 
 
     /**
@@ -72,6 +75,7 @@ public class UserInfoController {
 	    System.out.println(userRequest);
 	    return "redirect:/user/top";
 	}
+	
     /**
      * ユーザーページトップを表示
      */
@@ -80,20 +84,24 @@ public class UserInfoController {
 	    // CustomUserDetailsオブジェクトを取得
         CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = auth.getName();
-        model.addAttribute("userName", userName);
         
+        String userName = auth.getName();
         String selfIntroduction = userDetails.getSelf_introduction();
+        
+        // ユーザーIDを使用して月ごととカテゴリごとの学習時間データを取得
+        List<LearningDataTotalRequest> monthlyCategoryData = learningDataMapper.MonthlyCategoryData(userDetails.getId());
+        
+        System.out.println("monthlyCategoryData: " + monthlyCategoryData); // デバッグ用の出力
 
+        model.addAttribute("userName", userName);
         model.addAttribute("selfIntroduction",selfIntroduction);
         model.addAttribute("userUpdateRequest",new UserUpdateRequest());
-
-	    // ログ出力
-	    System.out.println("selfIntroduction" + selfIntroduction);
-	    
+        model.addAttribute("monthlyCategoryData", monthlyCategoryData);
+        
 	    return "/user/top";
 	}
 
+    
 	
     /**
      * ログインページを表示
