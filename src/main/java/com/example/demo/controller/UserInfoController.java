@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
-import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.authentication.CustomUserDetails;
-import com.example.demo.dao.LearningDataMapper;
-import com.example.demo.dto.LearningDataTotalRequest;
 import com.example.demo.dto.UserAddRequest;
 import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.service.UserInfoService;
@@ -38,8 +33,7 @@ public class UserInfoController {
      */
     @Autowired
     private UserInfoService userInfoService;
-    @Autowired
-    private LearningDataMapper learningDataMapper;
+
 
 
     /**
@@ -78,7 +72,6 @@ public class UserInfoController {
 	    System.out.println(userRequest);
 	    return "redirect:/user/top";
 	}
-	
     /**
      * ユーザーページトップを表示
      */
@@ -87,51 +80,22 @@ public class UserInfoController {
 	    // CustomUserDetailsオブジェクトを取得
         CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        
         String userName = auth.getName();
-        String selfIntroduction = userDetails.getSelf_introduction();
-        
-        // ユーザーIDを使用して学習時間の合計データを取得
-        List<LearningDataTotalRequest> monthlyCategoryData = learningDataMapper.MonthlyCategoryData(userDetails.getId());
-        
-        
-        Map<Long, Map<String, Integer>> categoryMonthData = new HashMap<>();
-        YearMonth currentMonth = YearMonth.now(); // 今月
-        YearMonth lastMonth = currentMonth.minusMonths(1); // 先月
-        YearMonth twoMonthsAgo = currentMonth.minusMonths(2); // 先々月
-
-        for (LearningDataTotalRequest data : monthlyCategoryData) {
-            Long categoryId = data.getCategoryId();
-            YearMonth dataMonth = YearMonth.parse(data.getMonth());
-            
-            // カテゴリID別にデータを格納するマップを取得、なければ新規作成
-            categoryMonthData.putIfAbsent(categoryId, new HashMap<>());
-            Map<String, Integer> monthData = categoryMonthData.get(categoryId);
-
-            // 月別にデータを分ける
-            if (dataMonth.equals(currentMonth)) {
-                monthData.put("今月", data.getTotalStudyTime());
-            } else if (dataMonth.equals(lastMonth)) {
-                monthData.put("先月", data.getTotalStudyTime());
-            } else if (dataMonth.equals(twoMonthsAgo)) {
-                monthData.put("先々月", data.getTotalStudyTime());
-            }
-        }
-        
         model.addAttribute("userName", userName);
+        
+        String selfIntroduction = userDetails.getSelf_introduction();
+
         model.addAttribute("selfIntroduction",selfIntroduction);
         model.addAttribute("userUpdateRequest",new UserUpdateRequest());
-        model.addAttribute("monthlyCategoryData", monthlyCategoryData);
-        model.addAttribute("categoryMonthData", categoryMonthData);
 
-        System.out.println("categoryMonthData: " + categoryMonthData); // デバッグ用の出力
+	    // ログ出力
+	    System.out.println("selfIntroduction" + selfIntroduction);
+	    
 	    return "/user/top";
 	}
 
 	
-
-
-	/**
+    /**
      * ログインページを表示
      */
     @GetMapping("/user/login")
@@ -186,12 +150,15 @@ public class UserInfoController {
             }
             model.addAttribute("validationError", errorList);
             return "user/profileedit";
-
+            
+            
         }
         // ユーザー情報の更新
         userInfoService.update(userUpdateRequest);
         return "redirect:/user/top";
     }
+    
+    
 
 
 
