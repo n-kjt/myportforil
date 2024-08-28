@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -88,22 +91,47 @@ public class UserInfoController {
         String userName = auth.getName();
         String selfIntroduction = userDetails.getSelf_introduction();
         
-        // ユーザーIDを使用して月ごととカテゴリごとの学習時間データを取得
+        // ユーザーIDを使用して学習時間の合計データを取得
         List<LearningDataTotalRequest> monthlyCategoryData = learningDataMapper.MonthlyCategoryData(userDetails.getId());
         
-        System.out.println("monthlyCategoryData: " + monthlyCategoryData); // デバッグ用の出力
+        
+        Map<Long, Map<String, Integer>> categoryMonthData = new HashMap<>();
+        YearMonth currentMonth = YearMonth.now(); // 今月
+        YearMonth lastMonth = currentMonth.minusMonths(1); // 先月
+        YearMonth twoMonthsAgo = currentMonth.minusMonths(2); // 先々月
 
+        for (LearningDataTotalRequest data : monthlyCategoryData) {
+            Long categoryId = data.getCategoryId();
+            YearMonth dataMonth = YearMonth.parse(data.getMonth());
+            
+            // カテゴリID別にデータを格納するマップを取得、なければ新規作成
+            categoryMonthData.putIfAbsent(categoryId, new HashMap<>());
+            Map<String, Integer> monthData = categoryMonthData.get(categoryId);
+
+            // 月別にデータを分ける
+            if (dataMonth.equals(currentMonth)) {
+                monthData.put("今月", data.getTotalStudyTime());
+            } else if (dataMonth.equals(lastMonth)) {
+                monthData.put("先月", data.getTotalStudyTime());
+            } else if (dataMonth.equals(twoMonthsAgo)) {
+                monthData.put("先々月", data.getTotalStudyTime());
+            }
+        }
+        
         model.addAttribute("userName", userName);
         model.addAttribute("selfIntroduction",selfIntroduction);
         model.addAttribute("userUpdateRequest",new UserUpdateRequest());
         model.addAttribute("monthlyCategoryData", monthlyCategoryData);
-        
+        model.addAttribute("categoryMonthData", categoryMonthData);
+
+//        System.out.println("categoryMap: " + categoryMap); // デバッグ用の出力
 	    return "/user/top";
 	}
 
-    
 	
-    /**
+
+
+	/**
      * ログインページを表示
      */
     @GetMapping("/user/login")
@@ -157,15 +185,12 @@ public class UserInfoController {
             }
             model.addAttribute("validationError", errorList);
             return "user/profileedit";
-            
-            
+
         }
         // ユーザー情報の更新
         userInfoService.update(userUpdateRequest);
         return "redirect:/user/top";
     }
-    
-    
 
 
 
