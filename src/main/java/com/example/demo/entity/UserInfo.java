@@ -25,6 +25,7 @@ public class UserInfo implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     /**
      * 名前
      */
@@ -109,6 +110,9 @@ public class UserInfo implements Serializable {
     public void setDeleteDate(Date deleteDate) {
         this.deleteDate = deleteDate;
     }
+
+
+
 
  
     

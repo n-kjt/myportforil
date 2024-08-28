@@ -1,70 +1,109 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="common/head :: head_fragment(title = 'TOP', scripts = ~{::script}, links = ~{::link})"></head>
+<head th:replace="common/head :: head_fragment(title = 'TOP', scripts = ~{::script}, links = ~{::link})">
+</head>
 <body>
+<div>
+  <header class="header d-flex justify-content-between">
     <div>
-        <header class="header d-flex justify-content-between">
-            <div>
-                <h1>My Portfolio</h1>
-            </div>
-			<form th:action="@{/logout}" method="post">
-			      <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
-			 </form>
-        </header>
-
-        <main>
-              <div class="main-container">
-            <div class="d-flex justify-content-between">
-                <div class="flex-column">
-                    <img th:src="@{/img/img_none.png}"class="img_icon">
-                    <p class="name mt-3" sec:authentication="name"></p>
-                </div>
-                <div class="flex-column text-center col-6">
-                <div><h2 class="ttl_border">自己紹介</h2></div>
-                <form id="self-introduction-form">
-                    <div class="form-group">
-                        <div class="mt-5">
-                            <p th:text=	"${selfIntroduction}"></p>
-							<a class="mt-3 btn btn-primary m-auto"th:href="@{/user/profileedit}" style="width: 240px;">自己紹介を編集する</a></div>
-                        </div>
-                  </div>
-              </form>
-            </div>
-
-          <div class="mt-5">
-              <h2 class="ttl_border text-center">学習チャート</h2>
-              <form id="chart-form">
-                  <div class="form-group">
-                      <div class="mt-5">
-                          <div class="d-flex justify-content-center"><a type="submit" class="mt-3 btn btn-primary" href="/user/category">編集する</a></div>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <div class="card mb-4">
-                          <div class="card-header">
-                              <i class="fas fa-chart-bar me-1"></i>
-                              Bar Chart Example
-                          </div>
-                          <div class="card-body">
-                              <!-- 棒グラフのキャンバス -->
-                              <canvas id="myBarChart" width="100%" height="40"></canvas>
-                          </div>
-                      </div>
-                  </div>                
-              </form>
-          </div>
-		   </div>
+      <h1>My Portfolio</h1>
     </div>
-        <div>
-            
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
+    </form>
+  </header>
+  <main>
+    <div class="main-container">
+      <div class="d-flex justify-content-between">
+        <div class="flex-column"> 
+            <img th:src="@{/img/img_none.png}" class="img_icon" alt="">
+          <p class="name mt-3" sec:authentication="name"></p>
         </div>
-        </main>
+        <div class="flex-column text-center col-6">
+          <div>
+            <h2 class="ttl_border">自己紹介</h2>
+          </div>
+          <form id="self-introduction-form">
+            <div class="form-group">
+              <div class="mt-5">
+                <p th:text=	"${selfIntroduction}"></p>
+                <a class="mt-3 btn btn-primary m-auto" th:href="@{/user/profileedit}" style="width: 240px;">自己紹介を編集する</a></div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="mt-5 chart-form">
+        <h2 class="ttl_border text-center">学習チャート</h2>
+        <div class="form-group">
+          <div class="mt-5">
+            <div class="d-flex justify-content-center"><a type="submit" class="mt-3 btn btn-primary" href="/user/category">編集する</a></div>
+          </div>
+        </div>
+        <div class="form-group mb-5">
+			
+			<canvas id="myChart"></canvas>
+			<script th:inline="javascript">
+				document.addEventListener('DOMContentLoaded', function() {
+				    // Thymeleafから渡されたデータをJavaScriptのオブジェクトとして取り込む
+				    const categoryMonthData = /*[[${categoryMonthData}]]*/ {};
+				
+				    console.log(categoryMonthData); // デバッグ用
+				
+				    // カテゴリIDとその名称をマッピングする
+				    const categoryNameMap = {
+				        1: 'フロント',
+				        2: 'バックエンド',
+				        3: 'インフラ'
+				    };
+				
+				    // チャートのラベルとデータセットを準備する
+				    const labels = ['先々月', '先月', '今月'];
+				    const datasets = [];
+				
+				    // カテゴリIDに基づいてデータセットを作成する
+				    Object.keys(categoryMonthData).forEach(categoryId => {
+				        const monthData = categoryMonthData[categoryId];
+				
+				        datasets.push({
+				            label: categoryNameMap[categoryId] ,
+				            data: [
+				                monthData['先々月'] || 0, 
+				                monthData['先月'] || 0, 
+				                monthData['今月'] || 0
+				            ],
+				            backgroundColor: categoryId == 1 ? 'rgb(247, 209, 170)' :
+				                             categoryId == 2 ? 'rgb(243, 181, 194)' :
+				                             categoryId == 3 ? 'rgb(250, 230, 181)' :
+				                             'rgba(255, 206, 86, 0.2)',
 
-        <footer class="footer">
-            <copy sec:authentication="name"></copy>
-        </footer>
-
-        <script src="script.js"></script>
+				        });
+				    });
+				
+				    // チャートを描画する
+				    const ctx = document.getElementById('myChart').getContext('2d');
+				    new Chart(ctx, {
+				        type: 'bar',
+				        data: {
+				            labels: labels,
+				            datasets: datasets
+				        },
+				        options: {
+				            scales: {
+				                y: {
+				                    beginAtZero: true
+				                }
+				            }
+				        }
+				    });
+				});
+			</script>		           
+		</div>
+      </div>
     </div>
+  </main>
+  <footer class="footer">
+    <copy sec:authentication="name"></copy>
+  </footer>
+</div>
 </body>
 </html>

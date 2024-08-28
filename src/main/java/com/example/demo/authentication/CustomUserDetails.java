@@ -27,7 +27,6 @@ public class CustomUserDetails implements UserDetails{
 		return this.userInfo.getName();
 	}
 	
-	//@Overrideするとエラーになる為、オーバーライドを外しています
 	public String getEmail() {
 		return this.userInfo.getEmail();
 	}
@@ -37,13 +36,13 @@ public class CustomUserDetails implements UserDetails{
 		return this.userInfo.getPassword();
 	}
 	
-	//@Override
 	public String getSelf_introduction() {
 		return this.userInfo.getSelfIntroduction();
 	}
 	
 	public Long getId(){
 	return this.userInfo.getId();
-}
+}	
+	
 
 }	
