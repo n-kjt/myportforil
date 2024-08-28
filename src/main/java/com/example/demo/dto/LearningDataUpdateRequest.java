@@ -26,6 +26,7 @@ public class LearningDataUpdateRequest implements Serializable {
   @NotEmpty(message = "項目名は必ず入力してください")
   @Size(max = 50, message = "項目名は50文字以内で入力してください")
   private String studyName;
+
   
   /**
   * 学習時間更新
