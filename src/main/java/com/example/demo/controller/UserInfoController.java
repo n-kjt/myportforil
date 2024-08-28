@@ -124,7 +124,7 @@ public class UserInfoController {
         model.addAttribute("monthlyCategoryData", monthlyCategoryData);
         model.addAttribute("categoryMonthData", categoryMonthData);
 
-//        System.out.println("categoryMap: " + categoryMap); // デバッグ用の出力
+        System.out.println("categoryMonthData: " + categoryMonthData); // デバッグ用の出力
 	    return "/user/top";
 	}
 

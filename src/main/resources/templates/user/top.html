@@ -42,42 +42,62 @@
         <div class="form-group mb-5">
 			
 			<canvas id="myChart"></canvas>
-			<script	th:inline="javascript">
+			<script th:inline="javascript">
 				document.addEventListener('DOMContentLoaded', function() {
-					// Thymeleafから渡されたデータをJavaScriptのオブジェクトとして取り込む
-					const categoryMonthData = /*[[${categoryMonthData}]]*/ {};
-					console.log(categoryMonthData); // デバッグ用
-					
-					// チャートのラベルとデータセットを準備する
-					const labels = ['先々月','先月','今月'];
-					const datasets = [];
-					
-					// カテゴリIDに基づいてデータセットを作成する
-					Object.keys(categoryMonthData).forEach(categoryId => {
-					    const monthData = categoryMonthData[categoryId];
+				    // Thymeleafから渡されたデータをJavaScriptのオブジェクトとして取り込む
+				    const categoryMonthData = /*[[${categoryMonthData}]]*/ {};
+				
+				    console.log(categoryMonthData); // デバッグ用
+				
+				    // カテゴリIDとその名称をマッピングする
+				    const categoryNameMap = {
+				        1: 'フロント',
+				        2: 'バックエンド',
+				        3: 'インフラ'
+				    };
+				
+				    // チャートのラベルとデータセットを準備する
+				    const labels = ['先々月', '先月', '今月'];
+				    const datasets = [];
+				
+				    // カテゴリIDに基づいてデータセットを作成する
+				    Object.keys(categoryMonthData).forEach(categoryId => {
+				        const monthData = categoryMonthData[categoryId];
+				
+				        datasets.push({
+				            label: categoryNameMap[categoryId] ,
+				            data: [
+				                monthData['先々月'] || 0, 
+				                monthData['先月'] || 0, 
+				                monthData['今月'] || 0
+				            ],
+				            backgroundColor: categoryId == 1 ? 'rgb(247, 209, 170)' :
+				                             categoryId == 2 ? 'rgb(243, 181, 194)' :
+				                             categoryId == 3 ? 'rgb(250, 230, 181)' :
+				                             'rgba(255, 206, 86, 0.2)',
 
-						   datasets.push({
-						       label: `カテゴリ ${categoryId}`,
-						       data: [monthData['先々月','先月','今月'] || 0],
-						       backgroundColor: categoryId == 1 ? 'rgb(247, 209, 170)' :
-						                        categoryId == 2 ? 'rgb(243, 181, 194)' :
-												categoryId == 3 ? 'rgb(250, 230, 181)' :
-						                        'rgba(255, 206, 86, 0.2)'
-						   });
-					});
-					
-					   // チャートを描画する
-					   const ctx = document.getElementById('myChart').getContext('2d');
-					   new Chart(ctx, {
-					       type: 'bar',
-					       data: {
-					           labels: labels,
-					           datasets: datasets
-					       },
-					   });
-					});			
-			</script>
-		           </div>
+				        });
+				    });
+				
+				    // チャートを描画する
+				    const ctx = document.getElementById('myChart').getContext('2d');
+				    new Chart(ctx, {
+				        type: 'bar',
+				        data: {
+				            labels: labels,
+				            datasets: datasets
+				        },
+				        options: {
+				            scales: {
+				                y: {
+				                    beginAtZero: true
+				                }
+				            }
+				        }
+				    });
+				});
+			</script>		           
+		</div>
       </div>
     </div>
   </main>
