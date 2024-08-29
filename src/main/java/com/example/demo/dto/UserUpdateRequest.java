@@ -35,5 +35,4 @@ public class UserUpdateRequest implements Serializable {
    private String selfIntroduction;
 
 
-
 }

@@ -124,7 +124,7 @@ public class UserInfoController {
         model.addAttribute("monthlyCategoryData", monthlyCategoryData);
         model.addAttribute("categoryMonthData", categoryMonthData);
 
-        System.out.println("categoryMonthData: " + categoryMonthData); // デバッグ用の出力
+        System.out.println("selfIntroduction: " + selfIntroduction); // デバッグ用の出力
 	    return "/user/top";
 	}
 
@@ -153,6 +153,7 @@ public class UserInfoController {
 	    // CustomUserDetailsオブジェクトを取得
         CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
         String userName = auth.getName();
         model.addAttribute("userName", userName);//Attributeで指定するとHTMLで表示できるようになる
         
@@ -177,18 +178,21 @@ public class UserInfoController {
      * @return 自己紹介更新
      */
     @RequestMapping(value = "/user/profileedit", method = RequestMethod.POST)
-    public String update(@Validated @ModelAttribute UserUpdateRequest userUpdateRequest, BindingResult result, Model model) {
+    public String update(@Validated @ModelAttribute UserUpdateRequest userUpdateRequest, BindingResult result, Model model,Authentication loginUser) {
         if (result.hasErrors()) {
             List<String> errorList = new ArrayList<String>();
             for (ObjectError error : result.getAllErrors()) {
                 errorList.add(error.getDefaultMessage());
             }
+
             model.addAttribute("validationError", errorList);
-            return "user/profileedit";
+            return "redirect:/user/profileedit";
+            
 
         }
         // ユーザー情報の更新
         userInfoService.update(userUpdateRequest);
+        
         return "redirect:/user/top";
     }
 

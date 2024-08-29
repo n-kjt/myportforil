@@ -40,7 +40,7 @@
             (#{name}, #{email}, #{password},#{self_introduction}, CURRENT_TIMESTAMP,  CURRENT_TIMESTAMP)
     </insert>
 
-    <!-- 更新 -->
+    <!-- 自己紹介文更新 -->
 <update id="update">
     UPDATE users 
     SET self_introduction = #{selfIntroduction}, update_date = CURRENT_TIMESTAMP 
