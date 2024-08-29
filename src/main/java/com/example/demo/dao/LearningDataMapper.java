@@ -32,8 +32,6 @@ public interface LearningDataMapper {
 	void deleteData(StudyTimeUpdateRequest request);
 	
 	 // 月ごととカテゴリごとの学習時間の合計を取得
-//	List<Map<String, Object>> MonthlyCategoryData(Long userId);
-
 	List<LearningDataTotalRequest> MonthlyCategoryData(@Param("userId") long userId);
 
 

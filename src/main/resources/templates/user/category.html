@@ -4,14 +4,7 @@
 </head>
 <body>
 <div>
-  <header class="header d-flex justify-content-between">
-    <div>
-      <h1>My Portfolio</h1>
-    </div>
-    <form th:action="@{/logout}" method="post">
-      <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
-    </form>
-  </header>
+	<header	th:replace="common/header"></header>
   <main>
     <div class="container">
 		<div class="skill-column">
