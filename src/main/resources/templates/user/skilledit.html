@@ -4,7 +4,14 @@
 </head>
 <body>
     <div>
-		<header	th:replace="common/header"></header>
+		 <header class="header d-flex justify-content-between">
+		   <div>
+			<a href="/user/category"><h1>My Portfolio</h1></a>
+		   </div>
+		   <form th:action="@{/logout}" method="post">
+		     <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
+		   </form>
+		 </header>
 
         <main class="main-container">
             <div class="midle-container">

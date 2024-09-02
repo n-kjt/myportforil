@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import java.io.Serializable;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -22,7 +23,8 @@ public class UserAddRequest implements Serializable {
      * メールアドレス
      */
     @NotEmpty(message = "メールアドレスは必ず入力してください")
-    @Size(max = 255, message = "メールアドレスは255桁以内で入力してください")
+    @Size(max = 255, message = "メールアドレスは255文字以内で入力してください")
+    @Email(message = "メールアドレスが正しい形式ではありません")
     private String email;
     /**
      * パスワード

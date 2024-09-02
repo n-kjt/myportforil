@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import com.example.demo.dao.LearningDataMapper;
 import com.example.demo.dto.LearningDataTotalRequest;
 import com.example.demo.dto.UserAddRequest;
 import com.example.demo.dto.UserUpdateRequest;
+import com.example.demo.entity.UserInfo;
 import com.example.demo.service.UserInfoService;
 
 /**
@@ -40,8 +42,17 @@ public class UserInfoController {
     private UserInfoService userInfoService;
     @Autowired
     private LearningDataMapper learningDataMapper;
+    @Autowired
+    public UserDetailsService userDetailsService;
 
-
+    @GetMapping("/user")
+    public String goHome() {
+        return "/user/login"; 
+    }
+    @GetMapping("/user/")
+    public String goHome2() {
+        return "/user/login"; 
+    }
     /**
      * 新規登録画面を表示
      * @param model Model
@@ -69,13 +80,10 @@ public class UserInfoController {
 	        }
 	        model.addAttribute("validationError", errorList);
 	        
-	        //コンソールで出力状況を確認	
-	        System.out.println(model.getAttribute("validationError"));
 	        return "user/add";
 	    }
 	    // ユーザー情報の登録
         userInfoService.save(userRequest);
-	    System.out.println(userRequest);
 	    return "redirect:/user/top";
 	}
 	
@@ -87,9 +95,14 @@ public class UserInfoController {
 	    // CustomUserDetailsオブジェクトを取得
         CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        
+
+        //ユーザー情報を取得
         String userName = auth.getName();
-        String selfIntroduction = userDetails.getSelf_introduction();
+        String selfIntroduction = UserInfo.getSelfIntroduction(); 
+        model.addAttribute("userName", userName);
+        model.addAttribute("selfIntroduction",selfIntroduction);
+        model.addAttribute("userUpdateRequest",new UserUpdateRequest());
+        
         
         // ユーザーIDを使用して学習時間の合計データを取得
         List<LearningDataTotalRequest> monthlyCategoryData = learningDataMapper.MonthlyCategoryData(userDetails.getId());
@@ -117,16 +130,14 @@ public class UserInfoController {
                 monthData.put("先々月", data.getTotalStudyTime());
             }
         }
-        
-        model.addAttribute("userName", userName);
-        model.addAttribute("selfIntroduction",selfIntroduction);
-        model.addAttribute("userUpdateRequest",new UserUpdateRequest());
+
+
         model.addAttribute("monthlyCategoryData", monthlyCategoryData);
         model.addAttribute("categoryMonthData", categoryMonthData);
 
-        System.out.println("selfIntroduction: " + selfIntroduction); // デバッグ用の出力
 	    return "/user/top";
 	}
+
 
 	
 
@@ -155,15 +166,14 @@ public class UserInfoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         
         String userName = auth.getName();
-        model.addAttribute("userName", userName);//Attributeで指定するとHTMLで表示できるようになる
-        
-        String selfIntroduction = userDetails.getSelf_introduction();
+        String selfIntroduction = UserInfo.getSelfIntroduction();
         UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
         
         userUpdateRequest.setId(userDetails.getId());
         userUpdateRequest.setSelfIntroduction(selfIntroduction);
         
-        
+      //Attributeで指定するとHTMLで表示できるようになる
+        model.addAttribute("userName", userName);
         model.addAttribute("userUpdateRequest", userUpdateRequest);
         model.addAttribute("selfIntroduction",selfIntroduction);
 
@@ -173,26 +183,40 @@ public class UserInfoController {
     
     /**
      * 自己紹介更新
-     * @param userRequest リクエストデータ
-     * @param model Model
-     * @return 自己紹介更新
      */
     @RequestMapping(value = "/user/profileedit", method = RequestMethod.POST)
     public String update(@Validated @ModelAttribute UserUpdateRequest userUpdateRequest, BindingResult result, Model model,Authentication loginUser) {
-        if (result.hasErrors()) {
-            List<String> errorList = new ArrayList<String>();
+	    // CustomUserDetailsオブジェクトを取得
+//        CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (result.hasErrors()) {	
+            List<String> errorList = new ArrayList<>();
             for (ObjectError error : result.getAllErrors()) {
                 errorList.add(error.getDefaultMessage());
             }
 
             model.addAttribute("validationError", errorList);
-            return "redirect:/user/profileedit";
+            return "/user/profileedit";
             
-
         }
+	    
         // ユーザー情報の更新
         userInfoService.update(userUpdateRequest);
         
+
+
+        //自己紹介文追加後のDB情報を表示させる
+
+      	/* authentication.getName()は、現在ログインしているユーザーのメールアドレスを返す
+      	 userDetailsService.loadUserByUsernameメソッドを使って、メールアドレスに基づいてデータベースからユーザー情報を取得*/
+//        CustomUserDetails updatedUserDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(auth.getName());
+//        
+//        //セキュリティコンテキストを更新
+//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+//                updatedUserDetails, auth.getCredentials(), updatedUserDetails.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(authToken);
+ 	    
         return "redirect:/user/top";
     }
 

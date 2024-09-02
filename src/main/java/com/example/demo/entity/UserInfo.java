@@ -3,13 +3,16 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+
+import lombok.Data;
 
 /**
  * ユーザー情報 Entity
  * エンティティ：データベースのテーブル構造を表したオブジェクト
  */
-
+@Data
 @Table(name = "users")//クラス名とテーブル名が異なる場合のEntityクラスの宣言
 public class UserInfo implements Serializable {
 
@@ -53,15 +56,26 @@ public class UserInfo implements Serializable {
     /**
      * 自己紹介
      */
-    private String self_introduction;
+   @Column(value="self_introduction")
+   
+   public static String selfIntroduction;
 
-    public String getSelfIntroduction() {
-        return self_introduction;
-    }
+   public static String getSelfIntroduction() {
+       return selfIntroduction;
+   }
 
-    public void setSelfIntroduction(String selfIntroduction) {
-        this.self_introduction = selfIntroduction;
-    }
+   public void setSelfIntroduction(String selfIntroduction) {
+       UserInfo.selfIntroduction = selfIntroduction;
+   }
+
+//    public String self_introduction;
+//
+//    public String getSelfIntroduction() {
+//        return self_introduction;
+//    }
+//    public void setSelfIntroduction(String selfIntroduction) {
+//        this.self_introduction = selfIntroduction;
+//    }
     /**
      * パスワード
      */
@@ -110,22 +124,5 @@ public class UserInfo implements Serializable {
     public void setDeleteDate(Date deleteDate) {
         this.deleteDate = deleteDate;
     }
-
-
-
-
- 
-    
-
-
-
-
-
-
-
-
-
-
-
 
 }
