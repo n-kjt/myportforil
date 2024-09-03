@@ -114,8 +114,8 @@ public class LearningDataController {
     
 //    学習項目の変更と削除
     @RequestMapping(value="/user/category", method=RequestMethod.POST)      
-    	public String updateStudyTime(@ModelAttribute StudyTimeUpdateRequest studyTimeUpdateRequest,@RequestParam String action,
-    			Model model,Authentication authentication) {
+    	public String updateStudyTime(@ModelAttribute StudyTimeUpdateRequest studyTimeUpdateRequest,@RequestParam String action,Model model,Authentication authentication) {
+    		
         if ("update".equals(action)) {
             studyTimeUpdateService.updateStudyTime(studyTimeUpdateRequest);}
         else if ("delete".equals(action)) {
@@ -125,26 +125,6 @@ public class LearningDataController {
     		// 成功ページへリダイレクト
     	        return "redirect:/user/category";
     }
-    
-    
-//    @RequestMapping("/user/top")
-//    public String getMonthlyCategoryData( Authentication loginUser, Model model) {
-//        // 現在認証されているユーザーを取得
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-//
-//        // ユーザーIDを使用して月ごととカテゴリごとの学習時間データを取得
-//        List<Map<String, Object>> getmonthlyCategoryData = learningDataMapper.getMonthlyCategoryData(userDetails.getId());
-//
-//
-//        // データをモデルに追加して、ビューに渡す
-//        model.addAttribute("getmonthlyCategoryData", getmonthlyCategoryData);
-//
-//        return "/user/top"; // 表示するビューの名前
-//    }
 
     
-
-  }
-
-    
+}

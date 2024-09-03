@@ -28,7 +28,6 @@ public class UserInfo implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     /**
      * 名前
      */
