@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.authentication.CustomUserDetails;
 import com.example.demo.dao.LearningDataMapper;
+import com.example.demo.dao.UserInfoMapper;
 import com.example.demo.dto.LearningDataTotalRequest;
 import com.example.demo.dto.UserAddRequest;
 import com.example.demo.dto.UserUpdateRequest;
@@ -44,6 +45,9 @@ public class UserInfoController {
     private LearningDataMapper learningDataMapper;
     @Autowired
     public UserDetailsService userDetailsService;
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+    
 
     @GetMapping("/user")
     public String goHome() {
@@ -97,8 +101,14 @@ public class UserInfoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         //ユーザー情報を取得
-        String userName = auth.getName();
-        String selfIntroduction = UserInfo.getSelfIntroduction(); 
+        String userName = auth.getName();        
+        // ユーザーIDを取得
+           Long userId = userDetails.getId(); 
+   		// userIdからユーザー情報を再取得
+           UserInfo userInfoEntity = userInfoMapper.findById(userId);
+        // selfIntroductionを取得
+           String selfIntroduction = userInfoEntity.getSelfIntroduction();
+           
         model.addAttribute("userName", userName);
         model.addAttribute("selfIntroduction",selfIntroduction);
         model.addAttribute("userUpdateRequest",new UserUpdateRequest());
@@ -166,7 +176,13 @@ public class UserInfoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         
         String userName = auth.getName();
-        String selfIntroduction = UserInfo.getSelfIntroduction();
+        
+        Long userId = userDetails.getId(); 
+     // userIdを使用してユーザー情報を取得
+        UserInfo userInfoEntity = userInfoMapper.findById(userId);
+     // selfIntroductionを取得
+        String selfIntroduction = userInfoEntity.getSelfIntroduction();
+        
         UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
         
         userUpdateRequest.setId(userDetails.getId());
@@ -203,19 +219,7 @@ public class UserInfoController {
 	    
         // ユーザー情報の更新
         userInfoService.update(userUpdateRequest);
-        
 
-
-        //自己紹介文追加後のDB情報を表示させる
-
-      	/* authentication.getName()は、現在ログインしているユーザーのメールアドレスを返す
-      	 userDetailsService.loadUserByUsernameメソッドを使って、メールアドレスに基づいてデータベースからユーザー情報を取得*/
-//        CustomUserDetails updatedUserDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(auth.getName());
-//        
-//        //セキュリティコンテキストを更新
-//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-//                updatedUserDetails, auth.getCredentials(), updatedUserDetails.getAuthorities());
-//        SecurityContextHolder.getContext().setAuthentication(authToken);
  	    
         return "redirect:/user/top";
     }

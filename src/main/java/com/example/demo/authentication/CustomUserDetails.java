@@ -36,19 +36,16 @@ public class CustomUserDetails implements UserDetails{
 		return this.userInfo.getPassword();
 	}
 	
-	public String getSelfIntroduction() {
-		return UserInfo.getSelfIntroduction();
+	public String getSelf_introduction() {
+		return this.userInfo.getSelfIntroduction();
 	}
 	
 	public Long getId(){
 	return this.userInfo.getId();
 }
 
-
-
-
-
-
-
+	public UserInfo getUserInfo() {
+	    return this.userInfo;
+	}
 
 }	

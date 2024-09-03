@@ -58,14 +58,14 @@ public class UserInfo implements Serializable {
      */
    @Column(value="self_introduction")
    
-   public static String selfIntroduction;
+   public String selfIntroduction;
 
-   public static String getSelfIntroduction() {
+   public String getSelfIntroduction() {
        return selfIntroduction;
    }
 
    public void setSelfIntroduction(String selfIntroduction) {
-       UserInfo.selfIntroduction = selfIntroduction;
+       this.selfIntroduction = selfIntroduction;
    }
 
 //    public String self_introduction;
