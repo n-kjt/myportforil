@@ -46,4 +46,9 @@ public class CustomUserDetails implements UserDetails{
 	return this.userInfo.getId();
 }
 
+	public UserInfo getUserInfo() {
+	    return this.userInfo;
+	}
+
+
 }	

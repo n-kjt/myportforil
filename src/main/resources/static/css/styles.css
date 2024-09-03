@@ -18,6 +18,7 @@ main{
 p{
 	word-break: break-all;
 }
+
 h1{
     margin: 0;
     font-size: 36px;
@@ -60,6 +61,15 @@ textarea:focus {
     width: 100%;
     padding: 20px;
 
+}
+header a{
+	color:#FFFFFF;
+	text-decoration: none;
+}
+header a:hover{
+	color:#FFFFFF;
+    opacity: .8;
+    
 }
 .footer{
     position: fixed;

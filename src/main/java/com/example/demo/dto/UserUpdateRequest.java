@@ -33,6 +33,3 @@ public class UserUpdateRequest implements Serializable {
    @NotEmpty(message = "自己紹介文は必ず入力してください")
    @Size(min = 50, max = 200, message = "自己紹介文は50文字以上200文字以内で入力してください")
    private String selfIntroduction;
-
-
-}

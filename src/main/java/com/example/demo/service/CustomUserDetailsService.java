@@ -25,7 +25,7 @@ import com.example.demo.entity.UserInfo;
 		            throw new UsernameNotFoundException("User not found");
 		        }
 		     // ログを追加して確認
-		        //System.out.println("SelfIntroduction: " + userInfo.getSelfIntroduction());
+//		        System.out.println("SelfIntroduction: " + userInfo.getSelfIntroduction());
 		        return new CustomUserDetails(userInfo);
 		    }
 	}

@@ -1,11 +1,15 @@
 package com.example.demo.controller;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.authentication.CustomUserDetails;
+import com.example.demo.dao.LearningDataMapper;
+import com.example.demo.dao.UserInfoMapper;
+import com.example.demo.dto.LearningDataTotalRequest;
 import com.example.demo.dto.UserAddRequest;
 import com.example.demo.dto.UserUpdateRequest;
+import com.example.demo.entity.UserInfo;
 import com.example.demo.service.UserInfoService;
 
 /**
@@ -33,9 +41,22 @@ public class UserInfoController {
      */
     @Autowired
     private UserInfoService userInfoService;
+    @Autowired
+    private LearningDataMapper learningDataMapper;
+    @Autowired
+    public UserDetailsService userDetailsService;
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+    
 
-
-
+    @GetMapping("/user")
+    public String goHome() {
+        return "/user/login"; 
+    }
+    @GetMapping("/user/")
+    public String goHome2() {
+        return "/user/login"; 
+    }
     /**
      * 新規登録画面を表示
      * @param model Model
@@ -63,15 +84,13 @@ public class UserInfoController {
 	        }
 	        model.addAttribute("validationError", errorList);
 	        
-	        //コンソールで出力状況を確認	
-	        System.out.println(model.getAttribute("validationError"));
 	        return "user/add";
 	    }
 	    // ユーザー情報の登録
         userInfoService.save(userRequest);
-	    System.out.println(userRequest);
 	    return "redirect:/user/top";
 	}
+	
     /**
      * ユーザーページトップを表示
      */
@@ -80,22 +99,60 @@ public class UserInfoController {
 	    // CustomUserDetailsオブジェクトを取得
         CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = auth.getName();
-        model.addAttribute("userName", userName);
-        
-        String selfIntroduction = userDetails.getSelf_introduction();
 
+        //ユーザー情報を取得
+        String userName = auth.getName();        
+        // ユーザーIDを取得
+           Long userId = userDetails.getId(); 
+   		// userIdからユーザー情報を再取得
+           UserInfo userInfoEntity = userInfoMapper.findById(userId);
+        // selfIntroductionを取得
+           String selfIntroduction = userInfoEntity.getSelfIntroduction();
+           
+        model.addAttribute("userName", userName);
         model.addAttribute("selfIntroduction",selfIntroduction);
         model.addAttribute("userUpdateRequest",new UserUpdateRequest());
+        
+        
+        // ユーザーIDを使用して学習時間の合計データを取得
+        List<LearningDataTotalRequest> monthlyCategoryData = learningDataMapper.MonthlyCategoryData(userDetails.getId());
+        
+        
+        Map<Long, Map<String, Integer>> categoryMonthData = new HashMap<>();
+        YearMonth currentMonth = YearMonth.now(); // 今月
+        YearMonth lastMonth = currentMonth.minusMonths(1); // 先月
+        YearMonth twoMonthsAgo = currentMonth.minusMonths(2); // 先々月
 
-	    // ログ出力
-	    System.out.println("selfIntroduction" + selfIntroduction);
-	    
+        for (LearningDataTotalRequest data : monthlyCategoryData) {
+            Long categoryId = data.getCategoryId();
+            YearMonth dataMonth = YearMonth.parse(data.getMonth());
+            
+            // カテゴリID別にデータを格納するマップを取得、なければ新規作成
+            categoryMonthData.putIfAbsent(categoryId, new HashMap<>());
+            Map<String, Integer> monthData = categoryMonthData.get(categoryId);
+
+            // 月別にデータを分ける
+            if (dataMonth.equals(currentMonth)) {
+                monthData.put("今月", data.getTotalStudyTime());
+            } else if (dataMonth.equals(lastMonth)) {
+                monthData.put("先月", data.getTotalStudyTime());
+            } else if (dataMonth.equals(twoMonthsAgo)) {
+                monthData.put("先々月", data.getTotalStudyTime());
+            }
+        }
+
+
+        model.addAttribute("monthlyCategoryData", monthlyCategoryData);
+        model.addAttribute("categoryMonthData", categoryMonthData);
+
 	    return "/user/top";
 	}
 
+
 	
-    /**
+
+
+	/**
      * ログインページを表示
      */
     @GetMapping("/user/login")
@@ -119,15 +176,20 @@ public class UserInfoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         
         String userName = auth.getName();
-        model.addAttribute("userName", userName);//Attributeで指定するとHTMLで表示できるようになる
         
-        String selfIntroduction = userDetails.getSelf_introduction();
+        Long userId = userDetails.getId(); 
+     // userIdを使用してユーザー情報を取得
+        UserInfo userInfoEntity = userInfoMapper.findById(userId);
+     // selfIntroductionを取得
+        String selfIntroduction = userInfoEntity.getSelfIntroduction();
+        
         UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
         
         userUpdateRequest.setId(userDetails.getId());
         userUpdateRequest.setSelfIntroduction(selfIntroduction);
         
-        
+      //Attributeで指定するとHTMLで表示できるようになる
+        model.addAttribute("userName", userName);
         model.addAttribute("userUpdateRequest", userUpdateRequest);
         model.addAttribute("selfIntroduction",selfIntroduction);
 
@@ -137,28 +199,30 @@ public class UserInfoController {
     
     /**
      * 自己紹介更新
-     * @param userRequest リクエストデータ
-     * @param model Model
-     * @return 自己紹介更新
      */
     @RequestMapping(value = "/user/profileedit", method = RequestMethod.POST)
-    public String update(@Validated @ModelAttribute UserUpdateRequest userUpdateRequest, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            List<String> errorList = new ArrayList<String>();
+    public String update(@Validated @ModelAttribute UserUpdateRequest userUpdateRequest, BindingResult result, Model model,Authentication loginUser) {
+	    // CustomUserDetailsオブジェクトを取得
+//        CustomUserDetails userDetails = (CustomUserDetails) loginUser.getPrincipal();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (result.hasErrors()) {	
+            List<String> errorList = new ArrayList<>();
             for (ObjectError error : result.getAllErrors()) {
                 errorList.add(error.getDefaultMessage());
             }
+
             model.addAttribute("validationError", errorList);
-            return "user/profileedit";
-            
+            return "/user/profileedit";
             
         }
+	    
         // ユーザー情報の更新
         userInfoService.update(userUpdateRequest);
+
+ 	    
         return "redirect:/user/top";
     }
-    
-    
 
 
 

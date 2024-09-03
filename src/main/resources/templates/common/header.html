@@ -1,0 +1,8 @@
+<header class="header d-flex justify-content-between">
+  <div>
+    <a href="/user/top"><h1>My Portfolio</h1></a>
+  </div>
+  <form th:action="@{/logout}" method="post">
+    <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
+  </form>
+</header>

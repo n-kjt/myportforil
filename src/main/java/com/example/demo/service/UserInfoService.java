@@ -23,25 +23,9 @@ public class UserInfoService {
      */
     @Autowired
     private UserInfoMapper userInfoMapper;
+    
     @Autowired
 	PasswordEncoder passwordEncoder;
-    /**
-     * ユーザー情報全件検索
-     * @return 検索結果
-     */
-    public List<UserInfo> findAll() {
-        return userInfoMapper.findAll();
-    }
-
-    /**
-     * ユーザー情報主キー検索
-     * @return 検索結果
-     */
-    public UserInfo findById(Long id) {
-        return userInfoMapper.findById(id);
-    }
-
-
 
     /**
      * ユーザ情報登録
@@ -64,6 +48,19 @@ public class UserInfoService {
         userInfoMapper.update(userUpdateRequest);
     }
 
+    public List<UserInfo> findAll() {
+    	return userInfoMapper.findAll();
+    }
+    
+    // ユーザーIDで検索
+    public UserInfo findById(Long id) {
+        return userInfoMapper.findById(id);
+    }
+    
+//    public UserInfo findByEmail(String email) {
+//        return userInfoMapper.findByEmail(email);
+//    }
+//    
 
     
     

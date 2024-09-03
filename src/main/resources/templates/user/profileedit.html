@@ -3,16 +3,7 @@
 <head th:replace="common/head :: head_fragment(title = '自己紹介編集', scripts = ~{::script}, links = ~{::link})"></head>
 <body>
     <div>
-        <header class="header d-flex justify-content-between">
-            <div>
-                <h1>My Portfolio</h1>
-            </div>
-            <div>
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" name="logout" class="btn btn-login" value="ログアウト"/>
-                </form>
-            </div>
-        </header>
+		<header	th:replace="common/header"></header>
 
         <main class="main-container">
             <div class="midle-container">
